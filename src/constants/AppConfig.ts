@@ -1,5 +1,8 @@
-import Config from "react-native-config";
+import Config from 'react-native-config';
 
-export const APP_CONFIG = {
-    API_URL: Config.API_URL,
-}
+const APP_CONFIG = {
+  API_URL: String(Config.API_URL),
+  ENABLE_CONSOLE_LOG: Boolean(Config.ENABLE_CONSOLE_LOG),
+};
+
+export default APP_CONFIG;

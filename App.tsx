@@ -1,32 +1,16 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import MainStack from '@navigations/MainStack';
+import {disableRTL} from '@utils/layout.utils';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import {StatusBar, StyleSheet, Text, useColorScheme, View} from 'react-native';
-import Config from 'react-native-config';
+disableRTL();
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <View style={{margin: 100}}>
-            <Text>{Config.API_URL}</Text>
-        </View>
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
-  );
+function App(): React.JSX.Element {
+    return (
+        <NavigationContainer>
+            <MainStack />
+        </NavigationContainer>
+    );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;
