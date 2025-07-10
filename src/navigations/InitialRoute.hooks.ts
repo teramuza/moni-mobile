@@ -10,7 +10,7 @@ type InitialRoute =
     | 'Loading'
     | 'Login';
 
-export function useInitialRoute(): {} {
+export function useInitialRoute() {
     const { user } = useAuthStore();
     const { session, fetchActiveSession } = useSessionStore();
     const [route, setRoute] = useState<InitialRoute>('Loading');

@@ -7,7 +7,7 @@ const ProfileSection = () => {
       <View>
         <IconOutline name={'user'} />
       </View>
-        <
+        <></>
     </View>
   );
 };
