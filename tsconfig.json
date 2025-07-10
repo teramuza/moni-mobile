@@ -38,23 +38,26 @@
       "@hooks/*": [
         "./src/hooks/*"
       ],
-      "@models/*": ["./src/models/*"],
+      "@models/*": [
+        "./src/models/*"
+      ],
       "@navigations/*": [
         "./src/navigations/*"
       ],
-      "@networks/*": ["./src/networks/*"],
+      "@networks/*": [
+        "./src/networks/*"
+      ],
       "@scenes/*": [
         "./src/scenes/*"
       ],
       "@stores/*": [
         "./src/stores/*"
       ],
-      "@types/*": [
+      "@type/*": [
         "./src/types/*"
       ],
-      "@themes/*": ["./src/themes/*"],
-      "@/*": [
-        "./src/*"
+      "@themes/*": [
+        "./src/themes/*"
       ]
     },
     "typeRoots": [

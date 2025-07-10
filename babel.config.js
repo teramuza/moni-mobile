@@ -19,7 +19,7 @@ module.exports = {
           '@networks': './src/networks',
           '@scenes': './src/scenes',
           '@stores': './src/stores',
-          '@types': './src/types',
+          '@type': './src/types',
           '@themes': './src/themes',
         },
       },

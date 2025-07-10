@@ -6,6 +6,7 @@ export interface AuthUser {
   role: TRole;
   username: string;
   status: TUserStatus;
+  profile_id: number;
 }
 
 export interface RegisterAccountPayload {

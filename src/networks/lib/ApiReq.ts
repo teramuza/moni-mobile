@@ -2,8 +2,10 @@ import axios from 'axios';
 import { useAuthStore } from '@stores/AuthStore';
 import APP_CONFIG from "@constants/AppConfig.ts";
 
+const BASE_URL = APP_CONFIG + '/api/v1';
+
 export const api = axios.create({
-    baseURL: APP_CONFIG.API_URL,
+    baseURL: BASE_URL,
     timeout: 10000,
 });
 

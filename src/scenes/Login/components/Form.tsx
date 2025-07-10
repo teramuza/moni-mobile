@@ -1,34 +1,50 @@
 import React, {useState} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import Colors from 'themes/colors';
-import InputField from 'components/InputField/InputField';
+import Colors from '@themes/colors';
+import InputField from '@components/InputField/InputField';
+import useLogin from "@scenes/Login/hooks/useLogin.ts";
+import {navigate} from "@navigations/Navigation.service.ts";
 
 interface IProps {}
 
 const Form: React.FC<IProps> = () => {
   const [isHidePassword, setIsHidePassword] = useState(true);
 
+  const {isLoading, username, password, errors, onChangeUsername, onChangePassword, handleSubmit} = useLogin();
+
   const onPressSecurePass = () => {
     setIsHidePassword(!isHidePassword);
   };
+
+  const onPressSubmit = () => {
+    const onSuccess = () => {
+      navigate('Dashboard')
+    }
+    handleSubmit({})
+  }
 
   return (
     <View style={styles.formContainer}>
       <InputField
         label="Email"
         inputMode="email"
+        autoCapitalize='none'
+        value={username}
+        onChangeText={onChangeUsername}
       />
       <InputField
         label="Password"
         secureTextEntry={isHidePassword}
         leftIcon={isHidePassword ? 'eye-invisible' : 'eye'}
         onPressLeftIcon={onPressSecurePass}
+        value={password}
+        onChangeText={onChangePassword}
       />
       <View style={styles.forgotPassContainer}>
         <Text style={styles.forgotPassLabel}>Lupa Password?</Text>
       </View>
       <View style={styles.continueButtonContainer}>
-        <Pressable style={styles.continueButtonPressable}>
+        <Pressable style={styles.continueButtonPressable} onPress={onPressSubmit}>
           <Text style={styles.continueButtonText}>Masuk</Text>
         </Pressable>
       </View>

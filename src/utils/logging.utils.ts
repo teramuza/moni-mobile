@@ -1,23 +1,23 @@
-import APP_CONFIG from 'constants/AppConfig.ts';
+import APP_CONFIG from '@constants/AppConfig.ts';
 
-function log(...args: any[]) {
+function log(...message: any[]) {
   if (APP_CONFIG.ENABLE_CONSOLE_LOG)
-    console.log('[Log] MONIAPPLOG: ', ...args);
+    console.log('[Log] MONIAPPLOG: ', ...message);
 }
 
-function info(...args: any[]) {
+function info(...message: any[]) {
   if (APP_CONFIG.ENABLE_CONSOLE_LOG)
-    console.info('[Info] MONIAPPLOG: ', ...args);
+    console.info('[Info] MONIAPPLOG: ', ...message);
 }
 
-function warn(...args: any[]) {
+function warn(...message: any[]) {
   if (APP_CONFIG.ENABLE_CONSOLE_LOG)
-    console.warn('[Warn] MONIAPPLOG: ', ...args);
+    console.warn('[Warn] MONIAPPLOG: ', ...message);
 }
 
-function error(...args: any[]) {
+function error(...message: any[]) {
   if (APP_CONFIG.ENABLE_CONSOLE_LOG)
-    console.error('[Error] MONIAPPLOG: ', ...args);
+    console.error('[Error] MONIAPPLOG: ', ...message);
 }
 
 const AppLogging = {
