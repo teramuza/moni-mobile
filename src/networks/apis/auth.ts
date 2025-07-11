@@ -9,7 +9,6 @@ import {BaseResponse} from "@type/networks.ts";
 export async function login(username: string, pass: string): Promise<AuthUser> {
   try {
     const res = await api.post<BaseResponse<AuthUser>>('/users/login', {username, pass});
-    console.log(res);
     return res.data.data.data;
   } catch (error) {
     return Promise.reject(error);

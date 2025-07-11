@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useAuthStore } from '@stores/AuthStore';
-import APP_CONFIG from '@constants/AppConfig.ts';
 import Config from "react-native-config";
 import LoggingUtils from "@utils/logging.utils.ts";
 
@@ -12,8 +11,8 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(async config => {
-  LoggingUtils.log('[REQ]', config.baseURL, config.method, config.url)
-  LoggingUtils.log('[REQ Body]', config.data)
+  LoggingUtils.info('[REQ]', config.baseURL, config.method, config.url)
+  LoggingUtils.info('[REQ Body]', config.data)
 
   const token = useAuthStore.getState().token;
   if (token) {
@@ -21,7 +20,7 @@ api.interceptors.request.use(async config => {
   }
   return config;
 }, (error) => {
-  LoggingUtils.log('AXIOS ERROR:', error?.response?.data || error.message);
+  LoggingUtils.warn('APIREQ ERROR:', error?.response?.data || error.message);
   return Promise.reject(error);
 });
 

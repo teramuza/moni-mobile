@@ -5,3 +5,8 @@ export interface BaseResponse<T> {
   };
   status: number;
 }
+
+export interface FetchResponse<T> {
+  message?: string;
+  data: T;
+}

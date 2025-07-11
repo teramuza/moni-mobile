@@ -9,20 +9,18 @@ const Tab = createBottomTabNavigator();
 
 const DashboardNavigator = () => {
   const { user } = useAuthStore();
-  const role = user?.role;
+  const role = user?.role ?? 0;
 
-  if (role === UserRole.SUPERVISOR) {
+  if (role > UserRole.EMPLOYEE) {
     return (
-      <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
+      <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} screenOptions={{headerShown: false}}>
         <Tab.Screen
           name="SupervisorDashboard"
           component={DashboardScene}
-          options={{ title: 'Beranda' }}
         />
         <Tab.Screen
           name="EmployeeList"
           component={DashboardScene}
-          options={{ title: 'Data Pegawai' }}
         />
       </Tab.Navigator>
     );

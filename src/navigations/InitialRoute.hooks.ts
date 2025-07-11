@@ -10,8 +10,6 @@ export function useInitialRoute() {
   const { user } = useAuthStore();
   const [route, setRoute] = useState<InitialRoute>('Loading');
 
-  console.log('user', user)
-
   useEffect(() => {
     if (!user?.id || user?.status !== 1) {
       setRoute('Login');

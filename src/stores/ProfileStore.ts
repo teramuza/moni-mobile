@@ -1,9 +1,10 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import {createJSONStorage, persist} from 'zustand/middleware';
 import { Profile } from '@models/Profile';
 import { getProfile } from '@networks/apis/profile';
 import {useAuthStore} from "@stores/AuthStore.ts";
 import LoggingUtils from "@utils/logging.utils.ts";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface ProfileState {
     profile: Profile | null;
@@ -16,22 +17,25 @@ export const useProfileStore = create<ProfileState>()(
     persist(
         (set) => ({
             profile: null,
-            setProfile: (profile) => set({ profile }),
+            setProfile: (profile: Profile) => set({ profile }),
             clearProfile: () => set({ profile: null }),
             fetchProfile: async () => {
                 const profileId = useAuthStore.getState().user?.profile_id;
                 if (!profileId) return;
                 try {
-                    const data = await getProfile(profileId);
-                    set({ profile: data });
+                    getProfile(profileId).then((data) => {
+                        set({ profile: data });
+                    }).catch(LoggingUtils.error);
                 } catch (error) {
-                    LoggingUtils.warn('Failed to fetch profile:', error);
                     set({ profile: null });
                 }
             },
         }),
         {
             name: 'profile-storage',
+            storage: createJSONStorage(() => AsyncStorage),
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            partialize: ({ actions, ...rest }: any) => rest,
         },
     ),
 );

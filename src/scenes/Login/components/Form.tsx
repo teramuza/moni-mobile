@@ -5,8 +5,6 @@ import InputField from '@components/InputField/InputField';
 import useLogin from '@scenes/Login/hooks/useLogin.ts';
 import { navigate } from '@navigations/Navigation.service.ts';
 import DashboardNavigator from '@scenes/Dashboard/Dashboard.navigator.tsx';
-import LoggingUtils from "@utils/logging.utils.ts";
-import Config from "react-native-config";
 import APP_CONFIG from "@constants/AppConfig.ts";
 
 interface IProps {}

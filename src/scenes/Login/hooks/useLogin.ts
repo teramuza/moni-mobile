@@ -44,7 +44,6 @@ export default function useLogin() {
 
   const loginUser = async () => {
     login(username.value, password.value).then((authData) => {
-      console.log(authData);
       setAuth(authData.access, {
         id: authData.id,
         role: authData.role,
