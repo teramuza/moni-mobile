@@ -33,8 +33,10 @@ const CustomTabBar = ({state, navigation, hideTabBar}: Props) => {
                         key={route.key}
                         accessibilityRole="button"
                         onPress={onPress}
-                        style={styles.tabItem}>
+                        style={[styles.tabItem]}>
+                        <View style={[styles.itemContainer, isFocused && styles.itemContainerSelected]}>
                         {icon}
+                        </View>
                     </TouchableOpacity>
                 );
             })}
@@ -46,14 +48,24 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         backgroundColor: Colors.neutralWhite,
-        paddingBottom: 10,
-        paddingTop: 6,
         borderTopWidth: 1,
         borderTopColor: Colors.neutralBorder,
+        height: 75,
     },
     tabItem: {
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'center',
+    },
+    itemContainer: {
+        width: 150,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    itemContainerSelected: {
+        backgroundColor: Colors.neutralSecondaryBg,
+        borderRadius: 16,
     },
     label: {
         fontSize: 12,

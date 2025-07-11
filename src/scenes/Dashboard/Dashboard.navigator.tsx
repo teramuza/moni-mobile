@@ -15,7 +15,7 @@ const DashboardNavigator = () => {
     return (
       <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} screenOptions={{headerShown: false}}>
         <Tab.Screen
-          name="SupervisorDashboard"
+          name={DashboardScene.name}
           component={DashboardScene}
         />
         <Tab.Screen
