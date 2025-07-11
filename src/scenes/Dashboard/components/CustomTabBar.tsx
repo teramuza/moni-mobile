@@ -4,6 +4,7 @@ import { IconOutline,
 } from '@ant-design/icons-react-native';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import Colors from "@themes/colors.ts";
+import DashboardScene from "@scenes/Dashboard/Dashboard.scene.tsx";
 
 interface Props extends BottomTabBarProps {
     hideTabBar?: boolean;
@@ -23,7 +24,7 @@ const CustomTabBar = ({state, navigation, hideTabBar}: Props) => {
                     }
                 };
 
-                const icon = route.name === 'Dashboard'
+                const icon = route.name === DashboardScene.name
                     ? <IconOutline name='home' style={isFocused ? styles.activeIcon : styles.icon} />
                     : <IconOutline name='team' style={isFocused ? styles.activeIcon : styles.icon} />;
 

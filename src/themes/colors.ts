@@ -6,7 +6,7 @@ const Colors = {
   bluePurplePlus1: '#624891',
   bluePurple: '#856cb7',
   bluePurpleMin1: '#a695cd',
-  bluePurpleMin2: '#c9c0e1',
+  bluePurpleMin2: '#e5dcfd',
 
   //red ruby color palette
   redRubyPlus2: '#7c1926',
@@ -20,7 +20,7 @@ const Colors = {
   royalBluePlus1: '#3144B4',
   royalBlue: '#5868dd',
   royalBlueMin1: '#8891e8',
-  royalBlueMin2: '#b6baf1',
+  royalBlueMin2: '#d4d7fa',
 
   //brown sugar color palette
   brownSugarPlus2: '#543624',
@@ -34,7 +34,7 @@ const Colors = {
   mossGreenPlus1: '#486515',
   mossGreen: '#658c21',
   mossGreenMin1: '#83B42D',
-  mossGreenMin2: '#a3de3a',
+  mossGreenMin2: '#cce7d6',
 
   //grey
   greyPlus2: '#36353a',
@@ -58,6 +58,7 @@ const Colors = {
   neutralContainer: '#F3F5F6',
   neutralSecondaryBg: '#F3F5F6',
   neutralWhite: '#FFF',
+  mintWhite: '#f6f9f9',
   neutralWhite20: 'rgba(255, 255, 255, .2)',
 
   // Translucent

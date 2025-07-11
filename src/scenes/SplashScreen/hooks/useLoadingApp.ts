@@ -6,10 +6,13 @@ import DashboardNavigator from '@scenes/Dashboard/Dashboard.navigator.tsx';
 import {useProfileStore} from "@stores/ProfileStore.ts";
 import {getProfile} from "@networks/apis/profile.ts";
 import {useAuthStore} from "@stores/AuthStore.ts";
+import {getActiveSessions} from "@networks/apis/sessions.ts";
+import {useSessionStore} from "@stores/SessionStore.ts";
 
 const useLoadingApp = () => {
   const route = useInitialRoute();
   const {profile, setProfile} = useProfileStore();
+  const {setSession} = useSessionStore();
   const { user } = useAuthStore();
 
   useEffect(() => {
@@ -32,10 +35,17 @@ const useLoadingApp = () => {
 
   useEffect(() => {
     let _navigate = () => {};
+    let navigationTimer: number;
     if (profile?.id) {
       _navigate = () => navigate(DashboardNavigator.name);
+      getActiveSessions().then(data => {
+        if (data && data.length > 0) {
+          setSession(data[0]);
+        }
+      }).finally(() => {
+        navigationTimer = setTimeout(_navigate, 3 * 1000);
+      });
     }
-    let navigationTimer = setTimeout(_navigate, 3 * 1000);
     return () => {
       clearTimeout(navigationTimer);
     };
