@@ -23,7 +23,7 @@ const ProfileSection = () => {
       </View>
       <View style={{justifyContent: 'center', marginHorizontal: 22}}>
         <Text style={{fontSize: 24, fontWeight: '500', color: Colors.bluePurplePlus1}}>{profile?.full_name}</Text>
-        <Text style={{fontSize: 16, fontWeight: '300', color: Colors.bluePurplePlus1}}>{(profile?.role ?? 0) > 0 ? 'Supervisor' : 'Sales'}</Text>
+        <Text style={{fontSize: 16, fontWeight: '300', color: Colors.bluePurplePlus1}}>{profile?.job_position}</Text>
       </View>
         <TouchableOpacity onPress={handleOnPressLogout} style={{flexDirection: 'row', alignItems: 'center', position: 'absolute', end: 1}}>
             <IconOutline name={'logout'} color={Colors.royalBlue}/>

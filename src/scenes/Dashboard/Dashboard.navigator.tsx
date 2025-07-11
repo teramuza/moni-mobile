@@ -7,26 +7,32 @@ import DashboardScene from '@scenes/Dashboard/Dashboard.scene.tsx';
 import { DefaultRefType } from '@type/base.ts';
 import LogoutSlider from '@scenes/Dashboard/components/Logout.slider.tsx';
 import { BottomSheetProvider } from '@components/molecules/BottomSheet/BottomSheetProvider.tsx';
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 const DashboardNavigatorWrapper = () => {
   const { user } = useAuthStore();
   const role = user?.role ?? 0;
 
-  if (role > UserRole.EMPLOYEE) {
-    return (
+  const SupervisorTabs = () => (
       <Tab.Navigator
-        tabBar={props => <CustomTabBar {...props} />}
-        screenOptions={{ headerShown: false }}
+          tabBar={props => <CustomTabBar {...props} />}
+          screenOptions={{ headerShown: false }}
       >
         <Tab.Screen name={DashboardScene.name} component={DashboardScene} />
         <Tab.Screen name="EmployeeList" component={DashboardScene} />
       </Tab.Navigator>
-    );
-  }
+  );
 
-  return <Tab.Screen name="SalesDashboard" component={DashboardScene} />;
+  const EmployeeStack = () => (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name={DashboardScene.name} component={DashboardScene} />
+      </Stack.Navigator>
+  );
+
+  return role > UserRole.EMPLOYEE ? <SupervisorTabs /> : <EmployeeStack />;
 };
 
 const DashboardNavigator = () => {
