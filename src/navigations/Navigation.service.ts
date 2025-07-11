@@ -1,4 +1,5 @@
-import {createNavigationContainerRef, StackActions} from '@react-navigation/native';
+import {CommonActions, createNavigationContainerRef, StackActions} from '@react-navigation/native';
+import SplashScreenScene from "@scenes/SplashScreen/SplashScreen.scene.tsx";
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -19,6 +20,15 @@ export function goBack() {
         navigationRef.goBack();
     }
 }
+
+export const reInitScreenApp = () => {
+    navigationRef.current?.dispatch(
+        CommonActions.reset({
+            index: 0,
+            routes: [{ name: SplashScreenScene.name }],
+        })
+    );
+};
 
 export function getCurrentRoute() {
     if (navigationRef.isReady()) {

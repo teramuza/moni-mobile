@@ -3,9 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Colors from '@themes/colors';
 import InputField from '@components/InputField/InputField';
 import useLogin from '@scenes/Login/hooks/useLogin.ts';
-import { navigate } from '@navigations/Navigation.service.ts';
-import DashboardNavigator from '@scenes/Dashboard/Dashboard.navigator.tsx';
-import APP_CONFIG from "@constants/AppConfig.ts";
+import { navigate, reInitScreenApp } from '@navigations/Navigation.service.ts';
 
 interface IProps {}
 
@@ -29,7 +27,7 @@ const Form: React.FC<IProps> = () => {
 
   const onPressSubmit = () => {
     const onSuccess = () => {
-      navigate(DashboardNavigator.name);
+      reInitScreenApp();
     };
     if (!isLoading && !errors?.password && !errors?.username) {
       handleSubmit({ onSuccess });
@@ -53,7 +51,6 @@ const Form: React.FC<IProps> = () => {
 
   return (
     <View style={styles.formContainer}>
-      <Text>{APP_CONFIG.API_URL}</Text>
       <InputField
         label="Email"
         inputMode="email"
@@ -71,9 +68,6 @@ const Form: React.FC<IProps> = () => {
         onChangeText={onChangePassword}
         errorText={errors?.password}
       />
-      <View style={styles.forgotPassContainer}>
-        <Text style={styles.forgotPassLabel}>Lupa Password?</Text>
-      </View>
       <View style={styles.continueButtonContainer}>
         <Pressable
           style={styles.continueButtonPressable}

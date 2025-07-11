@@ -2,7 +2,7 @@ import React from 'react';
 import {StatusBar as RNStatusBar, StatusBarStyle, View} from 'react-native';
 import {isIOS} from '@utils/platform.utils';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import Colors, {IColors} from 'themes/colors';
+import Colors, {IColors} from '@themes/colors';
 
 interface Props {
     barColor?: IColors;
