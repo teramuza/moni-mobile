@@ -1,46 +1,26 @@
-import {useEffect, useState} from 'react';
-import {useAuthStore} from '@stores/AuthStore';
-import {useSessionStore} from '@stores/SessionStore';
-import {UserRole} from "@constants/User.ts";
+import { useEffect, useState } from 'react';
+import { useAuthStore } from '@stores/AuthStore';
 
 type InitialRoute =
-    | 'DashboardSupervisor'
-    | 'DashboardSalesWithSession'
-    | 'DashboardSalesWithoutSession'
-    | 'Loading'
-    | 'Login';
+  | 'Dashboard'
+  | 'Loading'
+  | 'Login';
 
 export function useInitialRoute() {
-    const { user } = useAuthStore();
-    const { session, fetchActiveSession } = useSessionStore();
-    const [route, setRoute] = useState<InitialRoute>('Loading');
+  const { user } = useAuthStore();
+  const [route, setRoute] = useState<InitialRoute>('Loading');
 
-    useEffect(() => {
-        if (!user?.id) {
-            setRoute('Login');
-            return;
-        }
+  console.log('user', user)
 
-        if (user?.status !== 1) {
-            setRoute('Login');
-            return;
-        }
+  useEffect(() => {
+    if (!user?.id || user?.status !== 1) {
+      setRoute('Login');
+      return;
+    }
 
-        if (user.role === UserRole.SUPERVISOR) {
-            setRoute('DashboardSupervisor');
-            return;
-        }
+    setRoute('Dashboard');
+    return;
+  }, [user?.id]);
 
-        if (user.role === UserRole.EMPLOYEE) {
-            fetchActiveSession().then(() => {
-                if (session) {
-                    setRoute('DashboardSalesWithSession');
-                } else {
-                    setRoute('DashboardSalesWithoutSession');
-                }
-            });
-        }
-    }, [user?.id]);
-
-    return route;
+  return route;
 }

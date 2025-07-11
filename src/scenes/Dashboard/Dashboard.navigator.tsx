@@ -1,30 +1,34 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useAuthStore } from '@stores/AuthStore';
-import DashboardSales from '@screens/Dashboard/Sales';
-import DashboardSupervisor from '@screens/Dashboard/Supervisor';
-import EmployeeListScreen from '@screens/Employee/List';
-import { useSessionStore } from '@stores/useSessionStore';
-import {UserRole} from "@constants/User.ts";
+import { UserRole } from '@constants/User.ts';
+import CustomTabBar from '@scenes/Dashboard/components/CustomTabBar.tsx';
+import DashboardScene from "@scenes/Dashboard/Dashboard.scene.tsx";
 
 const Tab = createBottomTabNavigator();
 
-export default function DashboardNavigator() {
-    const { user } = useAuthStore();
-    const role = user?.role;
+const DashboardNavigator = () => {
+  const { user } = useAuthStore();
+  const role = user?.role;
 
-    if (role === UserRole.SUPERVISOR) {
-        return (
-            <Tab.Navigator>
-                <Tab.Screen name="SupervisorDashboard" component={DashboardSupervisor} options={{ title: 'Beranda' }} />
-                <Tab.Screen name="EmployeeList" component={EmployeeListScreen} options={{ title: 'Data Pegawai' }} />
-            </Tab.Navigator>
-        );
-    }
-
+  if (role === UserRole.SUPERVISOR) {
     return (
-        <Tab.Navigator screenOptions={{ headerShown: false }}>
-            <Tab.Screen name="SalesDashboard" component={DashboardSales} />
-        </Tab.Navigator>
+      <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
+        <Tab.Screen
+          name="SupervisorDashboard"
+          component={DashboardScene}
+          options={{ title: 'Beranda' }}
+        />
+        <Tab.Screen
+          name="EmployeeList"
+          component={DashboardScene}
+          options={{ title: 'Data Pegawai' }}
+        />
+      </Tab.Navigator>
     );
+  }
+
+  return <Tab.Screen name="SalesDashboard" component={DashboardScene} />;
 }
+
+export default DashboardNavigator;

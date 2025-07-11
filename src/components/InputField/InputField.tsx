@@ -12,9 +12,9 @@ import {
   IconOutline,
   OutlineGlyphMapType,
 } from '@ant-design/icons-react-native';
-import Colors from 'themes/colors';
+import Colors from '@themes/colors';
 import {TextInputProps} from 'react-native';
-import colors from 'themes/colors';
+import colors from '@themes/colors';
 
 interface Props extends TextInputProps {
   label?: string;

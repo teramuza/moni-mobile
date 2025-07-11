@@ -1,16 +1,29 @@
-import React, {useState} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Colors from '@themes/colors';
 import InputField from '@components/InputField/InputField';
-import useLogin from "@scenes/Login/hooks/useLogin.ts";
-import {navigate} from "@navigations/Navigation.service.ts";
+import useLogin from '@scenes/Login/hooks/useLogin.ts';
+import { navigate } from '@navigations/Navigation.service.ts';
+import DashboardNavigator from '@scenes/Dashboard/Dashboard.navigator.tsx';
+import LoggingUtils from "@utils/logging.utils.ts";
+import Config from "react-native-config";
+import APP_CONFIG from "@constants/AppConfig.ts";
 
 interface IProps {}
 
 const Form: React.FC<IProps> = () => {
   const [isHidePassword, setIsHidePassword] = useState(true);
+  const [dots, setDots] = useState('.');
 
-  const {isLoading, username, password, errors, onChangeUsername, onChangePassword, handleSubmit} = useLogin();
+  const {
+    isLoading,
+    username,
+    password,
+    errors,
+    onChangeUsername,
+    onChangePassword,
+    handleSubmit,
+  } = useLogin();
 
   const onPressSecurePass = () => {
     setIsHidePassword(!isHidePassword);
@@ -18,19 +31,38 @@ const Form: React.FC<IProps> = () => {
 
   const onPressSubmit = () => {
     const onSuccess = () => {
-      navigate('Dashboard')
+      navigate(DashboardNavigator.name);
+    };
+    if (!isLoading && !errors?.password && !errors?.username) {
+      handleSubmit({ onSuccess });
     }
-    handleSubmit({})
-  }
+  };
+
+  useEffect(
+    function handleLoadingDots() {
+      if (isLoading) {
+        const interval = setInterval(() => {
+          setDots(prev => (prev.length >= 3 ? '' : prev + '.'));
+        }, 500);
+
+        return () => clearInterval(interval);
+      } else {
+        setDots('');
+      }
+    },
+    [isLoading],
+  );
 
   return (
     <View style={styles.formContainer}>
+      <Text>{APP_CONFIG.API_URL}</Text>
       <InputField
         label="Email"
         inputMode="email"
-        autoCapitalize='none'
+        autoCapitalize="none"
         value={username}
         onChangeText={onChangeUsername}
+        errorText={errors?.username}
       />
       <InputField
         label="Password"
@@ -39,13 +71,19 @@ const Form: React.FC<IProps> = () => {
         onPressLeftIcon={onPressSecurePass}
         value={password}
         onChangeText={onChangePassword}
+        errorText={errors?.password}
       />
       <View style={styles.forgotPassContainer}>
         <Text style={styles.forgotPassLabel}>Lupa Password?</Text>
       </View>
       <View style={styles.continueButtonContainer}>
-        <Pressable style={styles.continueButtonPressable} onPress={onPressSubmit}>
-          <Text style={styles.continueButtonText}>Masuk</Text>
+        <Pressable
+          style={styles.continueButtonPressable}
+          onPress={onPressSubmit}
+        >
+          <Text style={styles.continueButtonText}>
+            {isLoading ? 'Masuk' + dots : 'Masuk'}
+          </Text>
         </Pressable>
       </View>
     </View>
