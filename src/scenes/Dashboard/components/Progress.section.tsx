@@ -76,7 +76,7 @@ const ProgressSection = () => {
   };
 
   return (
-    <View style={{ paddingHorizontal: 12, flex: 1 }}>
+    <View style={{ paddingHorizontal: 12}}>
       {renderTopSection()}
       {renderProgressSection()}
     </View>
