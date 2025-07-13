@@ -3,6 +3,7 @@ import { Image, View, Text } from 'react-native';
 import images from '@images';
 import Colors from '@themes/colors.ts';
 import useLoadingApp from '@scenes/SplashScreen/hooks/useLoadingApp.ts';
+import LoadingSpinner from "@components/molecules/LoadingSpinner.tsx";
 
 const SplashScreenScene = () => {
   useLoadingApp();
@@ -26,6 +27,9 @@ const SplashScreenScene = () => {
         >
           employee monitoring app
         </Text>
+          <View style={{marginTop: 30}}>
+          <LoadingSpinner color={Colors.neutralWhite} />
+          </View>
       </View>
       <View
         style={{

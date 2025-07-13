@@ -2,6 +2,7 @@ import { login } from '@networks/apis/auth';
 import { useAuthStore } from '@stores/AuthStore';
 import { useState } from 'react';
 import { DefaultHandler } from '@type/FunctionHandler';
+import LoggingUtils from "@utils/logging.utils.ts";
 
 export default function useLogin() {
   const setAuth = useAuthStore(s => s.setAuth);

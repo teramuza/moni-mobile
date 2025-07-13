@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useAuthStore } from '@stores/AuthStore';
 import { useFocusEffect } from '@react-navigation/native';
+import LoggingUtils from "@utils/logging.utils.ts";
 
 type InitialRoute = 'Dashboard' | 'Loading' | 'Login';
 
@@ -10,6 +11,7 @@ export function useInitialRoute() {
 
   useFocusEffect(
     useCallback(() => {
+        LoggingUtils.log('user', user);
       if (!user?.id || user?.status !== 1) {
         setRoute('Login');
         return;
