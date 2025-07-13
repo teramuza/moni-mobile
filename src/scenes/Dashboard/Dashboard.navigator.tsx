@@ -8,6 +8,7 @@ import { DefaultRefType } from '@type/base.ts';
 import LogoutSlider from '@scenes/Dashboard/components/Logout.slider.tsx';
 import { BottomSheetProvider } from '@components/molecules/BottomSheet/BottomSheetProvider.tsx';
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import routeName from "@navigations/routeName.ts";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -21,14 +22,14 @@ const DashboardNavigatorWrapper = () => {
           tabBar={props => <CustomTabBar {...props} />}
           screenOptions={{ headerShown: false }}
       >
-        <Tab.Screen name={DashboardScene.name} component={DashboardScene} />
-        <Tab.Screen name="EmployeeList" component={DashboardScene} />
+        <Tab.Screen name={routeName.Dashboard} component={DashboardScene} />
+        <Tab.Screen name={routeName.Employee} component={DashboardScene} />
       </Tab.Navigator>
   );
 
   const EmployeeStack = () => (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name={DashboardScene.name} component={DashboardScene} />
+        <Stack.Screen name={routeName.Dashboard} component={DashboardScene} />
       </Stack.Navigator>
   );
 

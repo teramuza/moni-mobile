@@ -1,5 +1,5 @@
 import {CommonActions, createNavigationContainerRef, StackActions} from '@react-navigation/native';
-import SplashScreenScene from "@scenes/SplashScreen/SplashScreen.scene.tsx";
+import routeName from "@navigations/routeName.ts";
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -25,7 +25,7 @@ export const reInitScreenApp = () => {
     navigationRef.current?.dispatch(
         CommonActions.reset({
             index: 0,
-            routes: [{ name: SplashScreenScene.name }],
+            routes: [{ name: routeName.SplashScreen }],
         })
     );
 };

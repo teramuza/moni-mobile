@@ -9,6 +9,7 @@ import { useAuthStore } from '@stores/AuthStore.ts';
 import { getActiveSessions } from '@networks/request/sessions.ts';
 import { useSessionStore } from '@stores/SessionStore.ts';
 import { useFocusEffect } from '@react-navigation/native';
+import routeName from "@navigations/routeName.ts";
 
 const useLoadingApp = () => {
   const route = useInitialRoute();
@@ -21,7 +22,7 @@ const useLoadingApp = () => {
       let _navigate = () => {};
       if (route !== 'Loading') {
         if (route === 'Login') {
-          _navigate = () => navigate(LoginScene.name);
+          _navigate = () => navigate(routeName.Login);
         } else if (route === 'Dashboard') {
           const profileId = user!.profile_id;
           getProfile(profileId).then(data => {
@@ -41,7 +42,7 @@ const useLoadingApp = () => {
       let _navigate = () => {};
       let navigationTimer: any;
       if (profile?.id) {
-        _navigate = () => navigate(DashboardNavigator.name);
+        _navigate = () => navigate(routeName.DashboardWrapper);
         getActiveSessions()
           .then(data => {
             if (data && data.length > 0) {
