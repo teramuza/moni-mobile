@@ -9,3 +9,13 @@ export interface SalesLog {
     createdAt?: string;
     updatedAt?: string;
 }
+
+
+export interface AllSalesCount {
+    total: number;
+    totalQty?: number;
+}
+
+export interface SalesItemCount {
+    totalQty: number;
+}

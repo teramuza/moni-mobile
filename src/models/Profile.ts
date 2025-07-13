@@ -19,3 +19,9 @@ export interface Profile {
   role: TRole;
   status: TUserStatus;
 }
+
+export interface SAWScore {
+  profile_id: number;
+  average_skor_saw?: number;
+  total_sessions?: number;
+}
