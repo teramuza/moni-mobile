@@ -6,6 +6,7 @@ import { useAuthStore } from '@stores/AuthStore.ts';
 import { getSalesByEmployee } from '@networks/request/sales.ts';
 import Colors from '@themes/colors.ts';
 import { shortNumber } from '@utils/number.utils.ts';
+import {useSessionStore} from "@stores/SessionStore.ts";
 
 export interface IDashboardSummarySection {
     label: string;
@@ -19,6 +20,7 @@ const useDashboardSession = () => {
     const [totalSessions, setTotalSessions] = useState(0);
     const [totalSalesItem, setTotalSalesItem] = useState(0);
     const { user } = useAuthStore();
+    const {setSession} = useSessionStore();
 
     useEffect(() => {
         if (!activeSession && user!.role === 0) {
@@ -30,6 +32,7 @@ const useDashboardSession = () => {
         getActiveSessions().then(sessions => {
             if (sessions && sessions.length > 0) {
                 setActiveSession(sessions[0]);
+                setSession(sessions[0]);
             } else {
                 getSummaryDashboard();
             }

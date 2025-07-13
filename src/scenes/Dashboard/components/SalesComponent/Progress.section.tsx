@@ -21,8 +21,6 @@ const ProgressSection: React.FC<IProps> = ({
     dashboardSummary,
 }) => {
     const { profile } = useProfileStore();
-
-    console.log('dashboardSummary', dashboardSummary)
     const renderTopSection = () => {
         const title =
             profile!.role > 0 ? 'Status Penjualan' : 'Kinerja Penjualanmu';
@@ -64,15 +62,16 @@ const ProgressSection: React.FC<IProps> = ({
                         },
                     ]}
                 >
-                    <View>
+                    <View style={styles.topSectionIconWrapper}>
                         <IconOutline
                             name={infoBoxContent.icon}
                             color={Colors[infoBoxContent.color]}
+                            size={25}
                         />
                     </View>
-                    <View>
+                    <View style={styles.topSectionContentWrapper}>
                         <Text style={{ fontSize: 12, fontWeight: '700' }}>
-                            {infoBoxContent.icon}
+                            {infoBoxContent.title}
                         </Text>
                         <Text>{infoBoxContent.label}</Text>
                     </View>
@@ -124,9 +123,23 @@ const styles = StyleSheet.create({
     },
     topSectionContainer: {
         flexDirection: 'row',
-        borderRadius: 8,
+        borderRadius: 16,
         paddingHorizontal: 12,
-        paddingVertical: 12,
+        paddingVertical: 24,
+        alignItems: 'center',
+        marginBottom: 22,
+    },
+    topSectionIconWrapper: { paddingHorizontal: 8, paddingVertical: 8 },
+    topSectionContentWrapper: { paddingHorizontal: 8 },
+    topSectionTitle: {
+        fontSize: 15,
+        fontWeight: '600',
+        paddingBottom: 8,
+    },
+    topSectionLabel: {
+        fontSize: 14,
+        fontWeight: '300',
+        maxWidth: 300,
     },
     progressSectionContainer: {
         paddingVertical: 12,
