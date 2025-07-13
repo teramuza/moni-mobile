@@ -22,7 +22,6 @@ const LogoutSlider = forwardRef<DefaultRefType, Props>(({ onClose }, ref) => {
 
   useImperativeHandle(ref, () => ({
     open: () => {
-      LoggingUtils.log('bwaaaa');
       bottomSheetRef?.current?.snapToIndex(0);
     },
     close: () => close,

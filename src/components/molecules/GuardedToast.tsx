@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Colors from "@themes/colors.ts";
 import {IconOutline} from "@ant-design/icons-react-native";
+import LoggingUtils from "@utils/logging.utils.ts";
 
 const DEFAULT_DURATION = 3000;
 const DEFAULT_DURATION_FADE = 300;
@@ -82,7 +83,7 @@ const GuardedToast = memo(forwardRef((props, ref) => {
     };
 
     if (!message) {
-        console.warn('You pass empty message to the Guarded Toast component');
+        LoggingUtils.warn('You pass empty message to the Guarded Toast component');
         return null;
     }
 
@@ -124,7 +125,7 @@ const GuardedToast = memo(forwardRef((props, ref) => {
                                 <IconOutline
                                     name='close'
                                     color={Colors.neutralSecondaryText}
-                                    size={24}/>
+                                    size={18}/>
                             </View>
                         </TouchableOpacity>
                     )}
@@ -149,18 +150,14 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.neutralMainText,
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         padding: 16,
         borderRadius: 16,
     },
     toastContent: {flex: 1},
-    toastRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-    },
+
     toastText: {
-        fontSize: 16,
+        fontSize: 14,
         color: Colors.neutralWhite,
     },
     buttonTitle: {
@@ -168,7 +165,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: Colors.royalBlueMin1
     },
-    closeButtonSection: {marginLeft: 8, width: 28, height: 28}
+    closeButtonSection: {marginLeft: 8, width: 28, height: 28, justifyContent: 'center'}
 });
 
 export type IGuardedToastOption = {

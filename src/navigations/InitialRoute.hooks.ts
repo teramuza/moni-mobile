@@ -11,7 +11,6 @@ export function useInitialRoute() {
 
   useFocusEffect(
     useCallback(() => {
-        LoggingUtils.log('user', user);
       if (!user?.id || user?.status !== 1) {
         setRoute('Login');
         return;

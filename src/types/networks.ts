@@ -16,3 +16,8 @@ export interface BaseErrorResponse {
 }
 
 export type NetworkError = AxiosError<BaseErrorResponse>
+
+export type ObjectData = Record<
+    string,
+    string | number | boolean | undefined | null
+>;

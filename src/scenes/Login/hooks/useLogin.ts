@@ -1,4 +1,4 @@
-import { login } from '@networks/apis/auth';
+import { login } from '@networks/request/auth.ts';
 import { useAuthStore } from '@stores/AuthStore';
 import { useState } from 'react';
 import { DefaultHandler } from '@type/FunctionHandler';
