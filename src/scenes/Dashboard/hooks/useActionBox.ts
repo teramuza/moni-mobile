@@ -20,7 +20,7 @@ export default function useActionBox() {
             {
                 icon: 'send',
                 title: 'Apakah kamu siap check-in?',
-                label: 'Kencangkan sabuk, angkat barangmu, kita mulai sesi petualangan!',
+                label: 'Siapkan helmu, angkat barangmu, kita mulai sesi petualangan!',
                 color: 'bluePurple',
                 onPress: () => {},
             },
