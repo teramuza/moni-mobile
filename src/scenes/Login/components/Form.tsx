@@ -3,11 +3,14 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Colors from '@themes/colors';
 import InputField from '@components/InputField/InputField';
 import useLogin from '@scenes/Login/hooks/useLogin.ts';
-import { navigate, reInitScreenApp } from '@navigations/Navigation.service.ts';
+import { reInitScreenApp } from '@navigations/Navigation.service.ts';
+import {BaseErrorResponse} from "@type/networks.ts";
 
-interface IProps {}
+interface IProps {
+  showToast?: (message?: string) => void;
+}
 
-const Form: React.FC<IProps> = () => {
+const Form: React.FC<IProps> = ({showToast}) => {
   const [isHidePassword, setIsHidePassword] = useState(true);
   const [dots, setDots] = useState('.');
 
@@ -29,8 +32,11 @@ const Form: React.FC<IProps> = () => {
     const onSuccess = () => {
       reInitScreenApp();
     };
+    const onFailure = (error?: BaseErrorResponse) => {
+      showToast?.(error?.error?.message);
+    }
     if (!isLoading && !errors?.password && !errors?.username) {
-      handleSubmit({ onSuccess });
+      handleSubmit({ onSuccess, onFailure });
     }
   };
 

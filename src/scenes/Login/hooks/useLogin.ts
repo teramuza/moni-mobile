@@ -2,7 +2,7 @@ import { login } from '@networks/apis/auth';
 import { useAuthStore } from '@stores/AuthStore';
 import { useState } from 'react';
 import { DefaultHandler } from '@type/FunctionHandler';
-import LoggingUtils from "@utils/logging.utils.ts";
+import {BaseErrorResponse} from "@type/networks.ts";
 
 export default function useLogin() {
   const setAuth = useAuthStore(s => s.setAuth);
@@ -43,31 +43,27 @@ export default function useLogin() {
     setPassword({ value, error: '' });
   };
 
-  const loginUser = async () => {
-    login(username.value, password.value).then((authData) => {
-      setAuth(authData.access, {
-        id: authData.id,
-        role: authData.role,
-        username: authData.username,
-        status: authData.status,
-        profile_id: authData.profile_id,
-      });
-    });
-
-  };
-
-  const handleSubmit = ({ onSuccess, onFailure }: DefaultHandler) => {
+  const loginUser = ({onSuccess, onFailure}: DefaultHandler<undefined, BaseErrorResponse>) => {
     const isValid = validateUsername() && validatePassword();
     if (isValid) {
       setLoading(true);
-      loginUser()
-        .then(() => {
+
+      login(username.value, password.value).then((authData) => {
+        if (authData?.access) {
+          setAuth(authData.access, {
+            id: authData.id,
+            role: authData.role,
+            username: authData.username,
+            status: authData.status,
+            profile_id: authData.profile_id,
+          });
           onSuccess?.();
-        })
-        .catch(() => {
-          onFailure?.();
-        })
-        .finally(() => setLoading(false));
+        }
+      }).catch((error: BaseErrorResponse) => {
+        onFailure?.(error);
+      }).finally(() => {
+        setLoading(false);
+      });
     }
   };
 
@@ -81,6 +77,6 @@ export default function useLogin() {
     },
     onChangeUsername,
     onChangePassword,
-    handleSubmit,
+    handleSubmit : loginUser,
   };
 }
