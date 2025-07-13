@@ -4,9 +4,9 @@ import { navigate } from '@navigations/Navigation.service.ts';
 import LoginScene from '@scenes/Login/Login.scene.tsx';
 import DashboardNavigator from '@scenes/Dashboard/Dashboard.navigator.tsx';
 import { useProfileStore } from '@stores/ProfileStore.ts';
-import { getProfile } from '@networks/apis/profile.ts';
+import { getProfile } from '@networks/request/profile.ts';
 import { useAuthStore } from '@stores/AuthStore.ts';
-import { getActiveSessions } from '@networks/apis/sessions.ts';
+import { getActiveSessions } from '@networks/request/sessions.ts';
 import { useSessionStore } from '@stores/SessionStore.ts';
 import { useFocusEffect } from '@react-navigation/native';
 

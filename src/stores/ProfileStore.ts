@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import {createJSONStorage, persist} from 'zustand/middleware';
 import { Profile } from '@models/Profile';
-import { getProfile } from '@networks/apis/profile';
+import { getProfile } from '@networks/request/profile.ts';
 import {useAuthStore} from "@stores/AuthStore.ts";
 import LoggingUtils from "@utils/logging.utils.ts";
 import AsyncStorage from "@react-native-async-storage/async-storage";

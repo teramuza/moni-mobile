@@ -2,7 +2,7 @@ import {create} from 'zustand';
 import {persist, createJSONStorage} from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Session} from '@models/Session';
-import {getActiveSessions} from "@networks/apis/sessions.ts";
+import {getActiveSessions} from "@networks/request/sessions.ts";
 
 interface SessionState {
     session: Session | null;
