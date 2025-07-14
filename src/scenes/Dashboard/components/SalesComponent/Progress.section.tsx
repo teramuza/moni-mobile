@@ -10,7 +10,6 @@ import { IDashboardSummarySection } from '@scenes/Dashboard/hooks/useDashboardSe
 import { SessionStatus } from '@models/Session.ts';
 import { getMinutesDuration } from '@utils/time.utils.ts';
 import { OutlineGlyphMapType } from '@ant-design/icons-react-native/lib/outline';
-import LoggingUtils from '@utils/logging.utils.ts';
 import { useSessionStore } from '@stores/SessionStore.ts';
 
 interface IProps {
@@ -125,7 +124,7 @@ const styles = StyleSheet.create({
     },
     topSectionContainer: {
         flexDirection: 'row',
-        borderRadius: 16,
+        borderRadius: 22,
         paddingHorizontal: 12,
         paddingVertical: 24,
         alignItems: 'center',
