@@ -16,7 +16,6 @@ const DashboardScene = () => {
         >
             <ProfileSection />
             <ProgressSection
-                activeSession={activeSession}
                 dashboardSummary={generateDashboardSummary()}
             />
             <ActionSection />

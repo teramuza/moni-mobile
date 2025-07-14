@@ -26,6 +26,7 @@ export interface Session {
   pick_time?: string; // or Date
   return_time?: string; // or Date
   status: TSessionStatusCode;
+  skor_saw?: number;
   createdAt?: string;
   updatedAt?: string;
 

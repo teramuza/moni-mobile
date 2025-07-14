@@ -7,27 +7,27 @@ import Colors, {
     IColorSchemes,
 } from '@themes/colors.ts';
 import { IDashboardSummarySection } from '@scenes/Dashboard/hooks/useDashboardSession.ts';
-import { Session } from '@models/Session.ts';
+import { SessionStatus } from '@models/Session.ts';
 import { getMinutesDuration } from '@utils/time.utils.ts';
 import { OutlineGlyphMapType } from '@ant-design/icons-react-native/lib/outline';
+import LoggingUtils from '@utils/logging.utils.ts';
+import { useSessionStore } from '@stores/SessionStore.ts';
 
 interface IProps {
-    activeSession?: Session;
     dashboardSummary?: IDashboardSummarySection[];
 }
 
-const ProgressSection: React.FC<IProps> = ({
-    activeSession,
-    dashboardSummary,
-}) => {
+const ProgressSection: React.FC<IProps> = ({ dashboardSummary }) => {
     const { profile } = useProfileStore();
+    const { session } = useSessionStore();
+
     const renderTopSection = () => {
         const title =
             profile!.role > 0 ? 'Status Penjualan' : 'Kinerja Penjualanmu';
 
-        if (activeSession?.status === 'active') {
+        if (session?.status === SessionStatus.CHECKIN) {
             const duration =
-                getMinutesDuration(activeSession.pick_time as string) / 60;
+                getMinutesDuration(session.pick_time as string) / 60;
 
             let infoBoxContent: {
                 title: string;
@@ -70,10 +70,12 @@ const ProgressSection: React.FC<IProps> = ({
                         />
                     </View>
                     <View style={styles.topSectionContentWrapper}>
-                        <Text style={{ fontSize: 12, fontWeight: '700' }}>
+                        <Text style={styles.topSectionTitle}>
                             {infoBoxContent.title}
                         </Text>
-                        <Text>{infoBoxContent.label}</Text>
+                        <Text style={styles.topSectionLabel}>
+                            {infoBoxContent.label}
+                        </Text>
                     </View>
                 </View>
             );
