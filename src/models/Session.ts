@@ -30,6 +30,9 @@ export interface Session {
   createdAt?: string;
   updatedAt?: string;
 
+  total_logs?: number;
+  total_qty?: number;
+
   CarriedItems?: CarriedItem[];
   SalesLogs?: SalesLog[];
 }

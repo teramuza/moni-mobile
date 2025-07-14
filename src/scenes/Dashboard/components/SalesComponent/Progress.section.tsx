@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     progressSectionTitle: {
         fontSize: 12,
         fontWeight: '300',
-        maxWidth: 75,
+        maxWidth: 85,
     },
     progressSectionValue: {
         fontSize: 24,

@@ -6,7 +6,7 @@ import ActionSection from '@scenes/Dashboard/components/Action.section.tsx';
 import useDashboardSession from '@scenes/Dashboard/hooks/useDashboardSession.ts';
 
 const DashboardScene = () => {
-    const { activeSession, generateDashboardSummary } = useDashboardSession();
+    const { generateDashboardSummary } = useDashboardSession();
     return (
         <View
             style={{
