@@ -2,6 +2,7 @@ import { useSessionStore } from '@stores/SessionStore.ts';
 import { OutlineGlyphMapType } from '@ant-design/icons-react-native/lib/outline';
 import { useAuthStore } from '@stores/AuthStore.ts';
 import {IColorSchemes} from "@themes/colors.ts";
+import useShiftSessionEmployee from "@hooks/useShiftSessionEmployee.ts";
 
 export interface IActionBox {
     icon: OutlineGlyphMapType;
@@ -13,7 +14,7 @@ export interface IActionBox {
 
 export default function useActionBox() {
     const { user } = useAuthStore();
-    const { session } = useSessionStore();
+    const { session, prepareCheckInSession} = useShiftSessionEmployee();
 
     const generateActionBox = () => {
         let actionBox: IActionBox[] = [
@@ -22,7 +23,7 @@ export default function useActionBox() {
                 title: 'Apakah kamu siap check-in?',
                 label: 'Siapkan helmu, angkat barangmu, kita mulai sesi petualangan!',
                 color: 'bluePurple',
-                onPress: () => {},
+                onPress: prepareCheckInSession,
             },
         ];
         if (session) {

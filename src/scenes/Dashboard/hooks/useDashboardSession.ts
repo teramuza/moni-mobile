@@ -1,12 +1,9 @@
-import { getActiveSessions } from '@networks/request/sessions.ts';
 import { useEffect, useState } from 'react';
-import { Session } from '@models/Session.ts';
 import { getSAWScore } from '@networks/request/profile.ts';
 import { useAuthStore } from '@stores/AuthStore.ts';
 import { getSalesByEmployee } from '@networks/request/sales.ts';
 import Colors from '@themes/colors.ts';
 import { shortNumber } from '@utils/number.utils.ts';
-import { useSessionStore } from '@stores/SessionStore.ts';
 import useShiftSessionEmployee from '@hooks/useShiftSessionEmployee.ts';
 import {UserRole} from "@constants/User.ts";
 import {getDurationString, getMinutesDuration} from "@utils/time.utils.ts";

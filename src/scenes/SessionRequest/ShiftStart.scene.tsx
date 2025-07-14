@@ -1,7 +1,7 @@
 import Header from "@scenes/SessionRequest/components/Header.tsx";
 import {View} from "react-native";
 
-const ShiftStartAddItemScene = () => {
+const ShiftStartScene = () => {
     return (
         <View>
             <Header title={'Checkout Shift'} />
@@ -11,4 +11,4 @@ const ShiftStartAddItemScene = () => {
     )
 }
 
-export default ShiftStartAddItemScene;
+export default ShiftStartScene;

@@ -7,8 +7,8 @@ import {
 import { getCurrentRoute, navigate } from '@navigations/Navigation.service.ts';
 import routeName from '@navigations/routeName.ts';
 import { SessionStatus } from '@models/Session.ts';
-import {useAuthStore} from "@stores/AuthStore.ts";
-import {UserRole} from "@constants/User.ts";
+import { useAuthStore } from '@stores/AuthStore.ts';
+import { UserRole } from '@constants/User.ts';
 
 const useShiftSessionEmployee = () => {
     const { session, setSession, clearSession } = useSessionStore();
@@ -50,13 +50,16 @@ const useShiftSessionEmployee = () => {
                 if (currentRoute?.name !== routeName.Dashboard) {
                     navigate(routeName.Dashboard);
                 }
-            } else if (session.status <= SessionStatus.VERIFY_IN) {
-                if (currentRoute?.name !== routeName.CheckInVerification) {
-                    navigate(routeName.CheckInVerification);
-                }
-            } else if (session.status >= SessionStatus.PENDING) {
+            } else if (
+                session.status <= SessionStatus.VERIFY_IN ||
+                session.status >= SessionStatus.PENDING
+            ) {
                 if (currentRoute?.name !== routeName.CheckInForm) {
                     navigate(routeName.CheckInForm);
+                }
+            } else if (session.status === SessionStatus.VERIFY_OUT) {
+                if (currentRoute?.name !== routeName.CheckOutForm) {
+                    navigate(routeName.CheckOutForm);
                 }
             }
         }

@@ -7,7 +7,6 @@ import images from '@images';
 import { useAuthStore } from '@stores/AuthStore.ts';
 import { reInitScreenApp } from '@navigations/Navigation.service.ts';
 import { useProfileStore } from '@stores/ProfileStore.ts';
-import LoggingUtils from '@utils/logging.utils.ts';
 import Colors from '@themes/colors.ts';
 
 interface Props {
