@@ -16,9 +16,9 @@ const styles = StyleSheet.create({
     headerContainer: {
         backgroundColor: Colors.bluePurplePlus2,
         justifyContent: 'center',
+        paddingTop: 80,
         paddingHorizontal: 24,
-        paddingVertical: 40,
-        paddingBottom: 62,
+        paddingBottom: 40,
     },
     logo: {
         width: 92,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'white',
         fontSize: 32,
-        maxWidth: 200,
+        maxWidth: 400,
         marginVertical: 4,
     },
 });

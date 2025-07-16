@@ -1,12 +1,14 @@
-import api, {fetchData, postData} from '@networks/lib/ApiReq.ts';
-import {CheckPointPayload, Session} from '@models/Session.ts';
-import {BaseResponse, ObjectData} from "@type/networks.ts";
-import sessionAPI from "@networks/apis/sessionAPI.ts";
-import {useAuthStore} from "@stores/AuthStore.ts";
+import { fetchData, postData } from '@networks/lib/ApiReq.ts';
+import { CheckPointPayload, Session } from '@models/Session.ts';
+import { BaseResponse, ObjectData } from '@type/networks.ts';
+import sessionAPI from '@networks/apis/sessionAPI.ts';
+import { useAuthStore } from '@stores/AuthStore.ts';
 
 export async function getActiveSessions() {
     try {
-        const response = await fetchData<Session[]>(sessionAPI.getActiveSessionURL);
+        const response = await fetchData<Session>(
+            sessionAPI.getActiveSessionURL,
+        );
         return response.data;
     } catch (err) {
         return Promise.reject(err);
@@ -14,37 +16,54 @@ export async function getActiveSessions() {
 }
 
 export const getSession = async (sessionId: number) => {
-    const res = await api.get<BaseResponse<Session>>('/session/' + sessionId);
-    return res.data.data;
+    try {
+        const res = await fetchData<Session>(
+            sessionAPI.getSessionURL + sessionId,
+        );
+        return res.data;
+    } catch (err) {
+        return Promise.reject(err);
+    }
 };
 
 export const checkInSession = async () => {
     const user = useAuthStore.getState().user;
     try {
-        const response = await postData<Session>(sessionAPI.checkInSessionURL, {profile_id: user?.profile_id});
+        const response = await postData<Session>(sessionAPI.checkInSessionURL, {
+            profile_id: user?.profile_id,
+        });
         return response.data;
     } catch (err) {
         return Promise.reject(err);
     }
-}
+};
 
-export const addItemToSession = async (sessionId: number, item: { id_inv: number, qty: number }) => {
+export const addItemToSession = async (
+    sessionId: number,
+    item: { id_inv: number; qty: number },
+) => {
     try {
-        const response = await postData(sessionAPI.addItemToSessionURL(sessionId), item);
+        const response = await postData(
+            sessionAPI.addItemToSessionURL(sessionId),
+            item,
+        );
         return response.data;
     } catch (err) {
         return Promise.reject(err);
     }
-}
+};
 
 export const updateItemSession = async (itemId: number, qty: number) => {
     try {
-        const response = await postData(sessionAPI.updateItemSessionURL(itemId), {qty})
+        const response = await postData(
+            sessionAPI.updateItemSessionURL(itemId),
+            { qty },
+        );
         return response.data;
     } catch (err) {
         return Promise.reject(err);
     }
-}
+};
 
 export const requestCheckInSession = async (sessionId: number) => {
     try {
@@ -53,22 +72,34 @@ export const requestCheckInSession = async (sessionId: number) => {
     } catch (err) {
         return Promise.reject(err);
     }
-}
+};
 
-export const checkpointSession = async (sessionId: number, data: CheckPointPayload) => {
+export const checkpointSession = async (
+    sessionId: number,
+    data: CheckPointPayload,
+) => {
     try {
-        const response = await postData(sessionAPI.checkPointURL(sessionId), data as unknown as ObjectData);
+        const response = await postData(
+            sessionAPI.checkPointURL(sessionId),
+            data as unknown as ObjectData,
+        );
         return response.data;
     } catch (err) {
         return Promise.reject(err);
     }
-}
+};
 
 export const requestCheckoutSession = async (sessionId: number) => {
     try {
-        const response = await postData(sessionAPI.requestCheckOutURL(sessionId));
-        return response.data;
+        const response = await postData(
+            sessionAPI.requestCheckOutURL(sessionId),
+        );
+        if (response) {
+            return {
+                success: true,
+            };
+        }
     } catch (err) {
         return Promise.reject(err);
     }
-}
+};

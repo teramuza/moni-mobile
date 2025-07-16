@@ -14,7 +14,7 @@ export interface IActionBox {
 
 export default function useActionBox() {
     const { user } = useAuthStore();
-    const { session, prepareCheckInSession} = useShiftSessionEmployee();
+    const { session, prepareCheckInSession, prepareCheckOutSession} = useShiftSessionEmployee();
 
     const generateActionBox = () => {
         let actionBox: IActionBox[] = [
@@ -40,7 +40,7 @@ export default function useActionBox() {
                     title: 'Cukup untuk hari ini?',
                     label: 'Sudahi sesi, kembali ke markas. Kita laporkan hasil terbaikmu hari ini!',
                     color: 'brownSugar',
-                    onPress: () => {},
+                    onPress: prepareCheckOutSession,
                 }
             ];
         }

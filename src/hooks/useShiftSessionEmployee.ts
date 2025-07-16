@@ -4,14 +4,21 @@ import {
     checkInSession,
     getActiveSessions,
 } from '@networks/request/sessions.ts';
-import { getCurrentRoute, navigate } from '@navigations/Navigation.service.ts';
+import {
+    getCurrentRoute,
+    navigate,
+    reInitScreenApp,
+} from '@navigations/Navigation.service.ts';
 import routeName from '@navigations/routeName.ts';
 import { SessionStatus } from '@models/Session.ts';
 import { useAuthStore } from '@stores/AuthStore.ts';
 import { UserRole } from '@constants/User.ts';
 
 const useShiftSessionEmployee = () => {
-    const { session, setSession, clearSession } = useSessionStore();
+    const session = useSessionStore(state => state.session);
+    const setSession = useSessionStore(state => state.setSession);
+    const clearSession = useSessionStore(state => state.clearSession);
+
     const { user } = useAuthStore();
 
     useEffect(() => {
@@ -26,8 +33,8 @@ const useShiftSessionEmployee = () => {
 
     const getActiveSession = () => {
         getActiveSessions().then(sessions => {
-            if (sessions && sessions.length > 0) {
-                setSession(sessions[0]);
+            if (sessions) {
+                setSession(sessions);
             }
         });
     };
@@ -41,17 +48,16 @@ const useShiftSessionEmployee = () => {
             ) {
                 if (
                     currentRoute?.name !== routeName.Dashboard &&
-                    currentRoute?.name !== routeName.CheckPointForm
+                    currentRoute?.name !== routeName.CheckPointForm &&
+                    currentRoute?.name !== routeName.CheckOutForm
                 ) {
-                    navigate(routeName.Dashboard);
+                    navigate(routeName.DashboardWrapper);
                 }
             } else if (session.status === SessionStatus.FINISH) {
                 clearSession();
-                if (currentRoute?.name !== routeName.Dashboard) {
-                    navigate(routeName.Dashboard);
-                }
+                reInitScreenApp();
             } else if (
-                session.status <= SessionStatus.VERIFY_IN ||
+                session.status <= SessionStatus.VERIFY_IN &&
                 session.status >= SessionStatus.PENDING
             ) {
                 if (currentRoute?.name !== routeName.CheckInForm) {
@@ -75,8 +81,15 @@ const useShiftSessionEmployee = () => {
         }
     };
 
+    const prepareCheckOutSession = () => {
+        if (session) {
+            navigate(routeName.CheckOutForm);
+        }
+    };
+
     return {
         prepareCheckInSession,
+        prepareCheckOutSession,
         checkActiveSession,
         getActiveSession,
         session,

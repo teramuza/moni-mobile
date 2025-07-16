@@ -10,7 +10,6 @@ export interface SalesLog {
     updatedAt?: string;
 }
 
-
 export interface AllSalesCount {
     total: number;
     totalQty?: number;
@@ -18,4 +17,15 @@ export interface AllSalesCount {
 
 export interface SalesItemCount {
     totalQty: number;
+}
+
+export interface SalesSummaryItem {
+    soldItems: Array<IItems>;
+    remainingItems: Array<IItems>;
+}
+
+export interface IItems {
+    name: string;
+    upc_code: string;
+    qty: number;
 }
