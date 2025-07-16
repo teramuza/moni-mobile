@@ -1,20 +1,22 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import { getInventories } from '@networks/request/inventories.ts';
 import { Inventory } from '@models/Inventory.ts';
 import { useSessionStore } from '@stores/SessionStore.ts';
 import {
-    addItemToSession,
+    addItemToSession, getSession,
     requestCheckInSession,
 } from '@networks/request/sessions.ts';
 import { useToast } from '@components/molecules/Toast/ToastProvider.tsx';
 import { SessionStatus } from '@models/Session.ts';
 import LoggingUtils from '@utils/logging.utils.ts';
 import { BaseErrorResponse } from '@type/networks.ts';
+import {reInitScreenApp} from "@navigations/Navigation.service.ts";
 
 function useShiftStart() {
     const [isLoading, setIsLoading] = useState(true);
     const [inventories, setInventories] = useState<Inventory[]>();
     const toastRef = useToast();
+    const pollingRef = useRef<NodeJS.Timeout | null>(null);
 
     const { session, setSession, updateStatus } = useSessionStore();
 
@@ -88,6 +90,27 @@ function useShiftStart() {
                 .finally(() => setIsLoading(false));
         }
     };
+
+    useEffect(() => {
+        if (!session || !isWaitingApproval) return;
+
+        const poll = async () => {
+            try {
+                const updatedSession = await getSession(session.id);
+                if (updatedSession?.status === SessionStatus.CHECKIN) {
+                    setSession(updatedSession);
+                    reInitScreenApp();
+                }
+            } catch (error) {
+                LoggingUtils.warn('Polling session error:', error);
+            }
+        };
+
+        pollingRef.current = setInterval(poll, 7500); // every 5 seconds
+        return () => {
+            if (pollingRef.current) clearInterval(pollingRef.current);
+        };
+    }, [session?.id, session?.status]);
 
     return {
         sceneTitle,

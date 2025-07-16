@@ -1,6 +1,6 @@
 import { fetchData, postData } from '@networks/lib/ApiReq.ts';
 import { CheckPointPayload, Session } from '@models/Session.ts';
-import { BaseResponse, ObjectData } from '@type/networks.ts';
+import { ObjectData } from '@type/networks.ts';
 import sessionAPI from '@networks/apis/sessionAPI.ts';
 import { useAuthStore } from '@stores/AuthStore.ts';
 import {CarriedItem} from "@models/CarriedItem.ts";

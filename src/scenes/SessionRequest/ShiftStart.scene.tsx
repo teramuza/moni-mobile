@@ -100,6 +100,14 @@ const ShiftStartScene = () => {
         );
     };
 
+    const renderVerification = () => {
+        if (!isWaitingApproval) return;
+        return (
+            <View style={{flex: 1}}>
+                <Text style={{fontSize: 50}}>OR 1231</Text>
+            </View>
+        );
+    };
     return (
         <SceneContainer>
             <Header title={sceneTitle} />
@@ -110,6 +118,7 @@ const ShiftStartScene = () => {
                     disabled
                 />
                 {renderForm()}
+                {renderVerification()}
             </ScrollView>
             {!isWaitingApproval && (
                 <View>
