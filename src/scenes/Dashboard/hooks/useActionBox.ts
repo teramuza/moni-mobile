@@ -3,6 +3,8 @@ import { useAuthStore } from '@stores/AuthStore.ts';
 import { IColorSchemes } from '@themes/colors.ts';
 import useShiftSessionEmployee from '@hooks/useShiftSessionEmployee.ts';
 import { useBottomSheetRefs } from '@components/molecules/BottomSheet/BottomSheetProvider.tsx';
+import {navigate} from "@navigations/Navigation.service.ts";
+import routeName from "@navigations/routeName.ts";
 
 export interface IActionBox {
     icon: OutlineGlyphMapType;
@@ -39,7 +41,7 @@ export default function useActionBox() {
                     title: 'Checkpoint penjualan',
                     label: 'Laporkan progress penjualanmu disini',
                     color: 'bluePurple',
-                    onPress: () => {},
+                    onPress: () => navigate(routeName.CheckPointForm),
                 },
                 {
                     icon: 'cluster',

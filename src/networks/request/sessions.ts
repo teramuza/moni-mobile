@@ -88,8 +88,11 @@ export const checkpointSession = async (
             sessionAPI.checkPointURL(sessionId),
             data as unknown as ObjectData,
         );
-        return response.data;
-    } catch (err) {
+        if (response) {
+            return {
+                success: true,
+            };
+        }    } catch (err) {
         return Promise.reject(err);
     }
 };

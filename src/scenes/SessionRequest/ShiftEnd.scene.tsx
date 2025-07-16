@@ -108,7 +108,7 @@ const ShiftEndScene = () => {
 
     return (
             <SceneContainer>
-                <Header title={sceneTitle} />
+                <Header title={sceneTitle} canBack />
                 <ScrollView style={styles.container}>
                     <InputField
                         label="ID Karyawan"

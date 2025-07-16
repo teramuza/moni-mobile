@@ -7,6 +7,7 @@ import routeName from '@navigations/routeName.ts';
 import ShiftEndScene from '@scenes/SessionRequest/ShiftEnd.scene.tsx';
 import ShiftStartScene from '@scenes/SessionRequest/ShiftStart.scene.tsx';
 import ShiftStartAddItemScene from '@scenes/SessionRequest/ShiftStartAddItem.scene.tsx';
+import CheckpointScene from '@scenes/SessionRequest/Checkpoint.scene.tsx';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,12 +27,16 @@ const MainStack = () => (
             component={DashboardNavigator}
         />
         <Stack.Screen
-            name={routeName.CheckInForm}
-            component={ShiftStartScene}
-        />
-        <Stack.Screen
             name={routeName.CheckInItemForm}
             component={ShiftStartAddItemScene}
+        />
+        <Stack.Screen
+            name={routeName.CheckPointForm}
+            component={CheckpointScene}
+        />
+        <Stack.Screen
+            name={routeName.CheckInForm}
+            component={ShiftStartScene}
         />
         <Stack.Screen name={routeName.CheckOutForm} component={ShiftEndScene} />
     </Stack.Navigator>
