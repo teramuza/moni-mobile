@@ -1,21 +1,25 @@
 import Header from '@scenes/SessionRequest/components/Header.tsx';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import DropdownField from '@components/InputField/DropdownField.tsx';
 import InputField from '@components/InputField/InputField.tsx';
 import CounterField from '@components/InputField/CounterField.tsx';
 import React, { useRef, useState } from 'react';
 import colors from '@themes/colors.ts';
 import Colors from '@themes/colors.ts';
-import SceneContainer, { shadowStyle } from '@components/molecules/SceneContainer.tsx';
+import SceneContainer, {
+    shadowStyle,
+} from '@components/molecules/SceneContainer.tsx';
 import useShiftStart from '@scenes/SessionRequest/hooks/useShiftStart.ts';
 import { Inventory } from '@models/Inventory.ts';
 import SliderOptionField from '@components/InputField/SliderOptionField.tsx';
 import { DefaultRefType } from '@type/base.ts';
+import {goBack} from "@navigations/Navigation.service.ts";
 
 const ShiftStartAddItemScene = () => {
-    const { inventories } = useShiftStart();
+    const { inventories, addItem } = useShiftStart();
     const sliderOptionRef = useRef<DefaultRefType>(null);
     const [selectedItem, setSelectedItem] = useState<Inventory>();
+    const [qty, setQty] = useState(0);
 
     const handleItemSelected = (item: Inventory) => {
         setSelectedItem(item);
@@ -24,6 +28,12 @@ const ShiftStartAddItemScene = () => {
     const handleOpenSliderOption = () => {
         sliderOptionRef?.current?.open();
     };
+
+    const handleSaveItem = () => {
+        if (selectedItem && qty > 0) {
+            addItem(selectedItem, qty, goBack)
+        }
+    }
 
     return (
         <SceneContainer>
@@ -43,10 +53,19 @@ const ShiftStartAddItemScene = () => {
                 />
                 <CounterField
                     label="QTY"
-                    value={2}
-                    onIncrease={() => {}}
-                    onDecrease={() => {}}
+                    value={qty}
+                    min={0}
+                    max={selectedItem?.stock ?? 0}
+                    onChange={setQty}
                 />
+            </View>
+            <View>
+                <TouchableOpacity
+                    style={[styles.bottomSection, !(!!selectedItem && qty > 0) && {backgroundColor: Colors.neutralDisabledBg}]}
+                    onPress={handleSaveItem}
+                >
+                    <Text style={styles.continueText}>{'SIMPAN'}</Text>
+                </TouchableOpacity>
             </View>
             <SliderOptionField
                 label="Pilih barang"
@@ -62,6 +81,7 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 22,
         paddingVertical: 12,
+        flex: 1,
     },
     fieldLabel: {
         paddingVertical: 12,

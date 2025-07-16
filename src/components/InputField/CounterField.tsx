@@ -1,12 +1,19 @@
-import React from 'react';
-import { Text, View, StyleSheet, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import {
+    Text,
+    View,
+    StyleSheet,
+    Pressable,
+    TextInput,
+    TouchableWithoutFeedback,
+    Keyboard,
+} from 'react-native';
 import colors from '@themes/colors';
 
 interface Props {
     label: string;
     value: number;
-    onIncrease: () => void;
-    onDecrease: () => void;
+    onChange: (newCounter: number) => void;
     min?: number;
     max?: number;
 }
@@ -14,61 +21,81 @@ interface Props {
 const CounterField: React.FC<Props> = ({
     label,
     value,
-    onIncrease,
-    onDecrease,
-    min,
+    onChange,
+    min = 0,
     max,
 }) => {
-    const canDecrease = min === undefined || value > min;
-    const canIncrease = max === undefined || value < max;
+    const [isEditing, setIsEditing] = useState(false);
+    const [tempValue, setTempValue] = useState(String(value));
+
+    const handleChangeText = (text: string) => {
+        if (/^\d*$/.test(text)) {
+            setTempValue(text);
+            const num = parseInt(text || '0', 10);
+            if (!isNaN(num)) {
+                if (max !== undefined && num > max) return;
+                if (num >= min) onChange(num);
+            }
+        }
+    };
+
+    const handleBlur = () => {
+        setIsEditing(false);
+        setTempValue(String(value)); // reset if invalid
+    };
+
+    const handleIncrement = () => {
+        if (max === undefined || value < max) {
+            onChange(value + 1);
+            setTempValue(String(value + 1));
+        }
+    };
+
+    const handleDecrement = () => {
+        if (value > min) {
+            onChange(value - 1);
+            setTempValue(String(value - 1));
+        }
+    };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.label}>{label}</Text>
-            <View style={styles.counterContainer}>
-                <Pressable
-                    style={({ pressed }) => [
-                        styles.circleButton,
-                        !canDecrease && styles.disabledButton,
-                        pressed && canDecrease && styles.buttonPressed,
-                    ]}
-                    onPress={canDecrease ? onDecrease : undefined}
-                >
-                    <Text
-                        style={[
-                            styles.buttonText,
-                            !canDecrease && styles.disabledText,
-                        ]}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <View style={styles.container}>
+                <Text style={styles.label}>{label}</Text>
+                <View style={styles.inputContainer}>
+                    <Pressable
+                        onPress={handleDecrement}
+                        style={styles.roundButton}
                     >
-                        –
-                    </Text>
-                </Pressable>
+                        <Text style={styles.sign}>−</Text>
+                    </Pressable>
 
-                <Text style={styles.value}>{value}</Text>
+                    {isEditing ? (
+                        <TextInput
+                            style={[styles.counterText, styles.inputText]}
+                            value={tempValue}
+                            keyboardType="numeric"
+                            onChangeText={handleChangeText}
+                            onBlur={handleBlur}
+                            autoFocus
+                        />
+                    ) : (
+                        <Pressable onPress={() => setIsEditing(true)}>
+                            <Text style={styles.counterText}>{value}</Text>
+                        </Pressable>
+                    )}
 
-                <Pressable
-                    style={({ pressed }) => [
-                        styles.circleButton,
-                        !canIncrease && styles.disabledButton,
-                        pressed && canIncrease && styles.buttonPressed,
-                    ]}
-                    onPress={canIncrease ? onIncrease : undefined}
-                >
-                    <Text
-                        style={[
-                            styles.buttonText,
-                            !canIncrease && styles.disabledText,
-                        ]}
+                    <Pressable
+                        onPress={handleIncrement}
+                        style={styles.roundButton}
                     >
-                        +
-                    </Text>
-                </Pressable>
+                        <Text style={styles.sign}>+</Text>
+                    </Pressable>
+                </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 };
-
-const CIRCLE_SIZE = 36;
 
 const styles = StyleSheet.create({
     container: {
@@ -82,40 +109,31 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: colors.neutralSecondaryText,
     },
-    counterContainer: {
+    inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'flex-end',
+        gap: 12,
     },
-    circleButton: {
-        width: CIRCLE_SIZE,
-        height: CIRCLE_SIZE,
-        borderRadius: CIRCLE_SIZE / 2,
-        backgroundColor: '#EEF3FF',
-        justifyContent: 'center',
-        alignItems: 'center',
+    roundButton: {
+        backgroundColor: colors.neutralSecondaryBg,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 999,
     },
-    buttonPressed: {
-        backgroundColor: '#DCE6FF',
-    },
-    buttonText: {
+    sign: {
         fontSize: 18,
-        fontWeight: '600',
-        color: '#3478F6',
+        color: colors.royalBlue,
     },
-    disabledButton: {
-        backgroundColor: '#F2F2F2',
-    },
-    disabledText: {
-        color: colors.neutralPlaceholder,
-    },
-    value: {
-        marginHorizontal: 16,
+    counterText: {
         fontSize: 18,
-        fontWeight: '500',
-        color: colors.neutralMainText,
-        minWidth: 24,
+        minWidth: 40,
         textAlign: 'center',
+        color: colors.neutralMainText,
+    },
+    inputText: {
+        borderBottomWidth: 1,
+        borderColor: colors.neutralBorder20,
     },
 });
 

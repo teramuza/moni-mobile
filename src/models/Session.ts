@@ -33,8 +33,8 @@ export interface Session {
   total_logs?: number;
   total_qty?: number;
 
-  CarriedItems?: CarriedItem[];
-  SalesLogs?: SalesLog[];
+  carried_products?: CarriedItem[];
+  sales_log?: SalesLog[];
 }
 
 export interface CheckPointPayload {

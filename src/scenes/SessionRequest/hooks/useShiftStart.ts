@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
-import { CarriedItem } from '@models/CarriedItem.ts';
 import { getInventories } from '@networks/request/inventories.ts';
 import { Inventory } from '@models/Inventory.ts';
 import { useSessionStore } from '@stores/SessionStore.ts';
 import { addItemToSession } from '@networks/request/sessions.ts';
 import { useToast } from '@components/molecules/Toast/ToastProvider.tsx';
 import { SessionStatus } from '@models/Session.ts';
+import LoggingUtils from "@utils/logging.utils.ts";
 
 function useShiftStart() {
     const [isLoading, setIsLoading] = useState(true);
-    const [carriedItems, setCarriedItems] = useState<CarriedItem[]>([]);
     const [inventories, setInventories] = useState<Inventory[]>();
     const toastRef = useToast();
 
-    const { session } = useSessionStore();
+    const { session, setSession } = useSessionStore();
 
     useEffect(() => {
         if (!inventories) {
@@ -31,7 +30,12 @@ function useShiftStart() {
         addItemToSession(session!.id, { id_inv: item.id, qty: qty })
             .then(response => {
                 if (response) {
-                    setCarriedItems(prevState => [...prevState, response]);
+                    LoggingUtils.log(response);
+                    const updatedCarriedItem = session?.carried_products ?? [];
+                    updatedCarriedItem.push(response);
+                    if (session) {
+                        setSession({...session, carried_products: updatedCarriedItem});
+                    }
                     onSuccess?.();
                 }
             })
@@ -61,7 +65,6 @@ function useShiftStart() {
         sceneTitle,
         isLoading,
         isWaitingApproval,
-        carriedItems,
         inventories,
         addItem,
         getProductData,

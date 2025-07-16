@@ -20,11 +20,13 @@ import { DefaultRefType } from '@type/base.ts';
 import { IconOutline } from '@ant-design/icons-react-native';
 import { navigate } from '@navigations/Navigation.service.ts';
 import routeName from '@navigations/routeName.ts';
+import {useSessionStore} from "@stores/SessionStore.ts";
 
 const ShiftStartScene = () => {
     const sliderRef = useRef<DefaultRefType>(null);
-    const { sceneTitle, isWaitingApproval, carriedItems, getProductData } =
+    const { sceneTitle, isWaitingApproval, getProductData } =
         useShiftStart();
+    const {session} = useSessionStore();
     const { profile } = useProfileStore();
 
     const handleContinue = () => {
@@ -37,6 +39,8 @@ const ShiftStartScene = () => {
 
     const renderForm = () => {
         if (isWaitingApproval) return;
+
+        const carriedItems = session?.carried_products;
 
         return (
             <>
