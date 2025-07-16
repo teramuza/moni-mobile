@@ -22,3 +22,15 @@ export function getDurationString(durationInMinutes?: number) {
         return `${minutes}m`;
     }
 }
+
+export function formatAktifSejak(dateStr: string): string {
+    const date = new Date(dateStr);
+
+    const formatted = new Intl.DateTimeFormat('id-ID', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+    }).format(date);
+
+    return `Aktif sejak ${formatted}`;
+}

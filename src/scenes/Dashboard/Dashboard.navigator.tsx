@@ -10,6 +10,8 @@ import { BottomSheetProvider } from '@components/molecules/BottomSheet/BottomShe
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import routeName from '@navigations/routeName.ts';
 import CheckInConfirmationSlider from '@scenes/Dashboard/components/SalesComponent/CheckInConfirmation.slider.tsx';
+import EmployeeScene from "@scenes/Dashboard/Employee.scene.tsx";
+import EmployeeDetailSlider from "@scenes/Dashboard/components/EmployeeDetail.slider.tsx";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -24,7 +26,7 @@ const DashboardNavigatorWrapper = () => {
             screenOptions={{ headerShown: false }}
         >
             <Tab.Screen name={routeName.Dashboard} component={DashboardScene} />
-            <Tab.Screen name={routeName.Employee} component={DashboardScene} />
+            <Tab.Screen name={routeName.Employee} component={EmployeeScene} />
         </Tab.Navigator>
     );
 
@@ -44,6 +46,7 @@ const DashboardNavigator = () => {
     const refs = {
         logoutSlider: useRef<DefaultRefType>(null),
         checkInConfirmationSlider: useRef<DefaultRefType>(null),
+        employeeDetailSlider: useRef<DefaultRefType>(null),
     };
     return (
         <BottomSheetProvider refs={refs}>
@@ -53,6 +56,7 @@ const DashboardNavigator = () => {
                 <CheckInConfirmationSlider
                     ref={refs.checkInConfirmationSlider}
                 />
+                <EmployeeDetailSlider ref={refs.employeeDetailSlider} />
             </>
         </BottomSheetProvider>
     );

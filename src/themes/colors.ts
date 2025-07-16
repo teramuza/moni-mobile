@@ -7,6 +7,7 @@ const Colors = {
   bluePurple: '#856cb7',
   bluePurpleMin1: '#a695cd',
   bluePurpleMin2: '#e5dcfd',
+  bluePurpleMin3: '#f1edfc',
 
   //red ruby color palette
   redRubyPlus2: '#7c1926',

@@ -6,7 +6,6 @@ import {
 import { goBack } from '@navigations/Navigation.service.ts';
 import {getProfileByEmployeeId} from "@networks/request/profile.ts";
 import {useToast} from "@components/molecules/Toast/ToastProvider.tsx";
-import LoggingUtils from "@utils/logging.utils.ts";
 import {BaseErrorResponse} from "@type/networks.ts";
 
 const useShiftSPV = () => {
