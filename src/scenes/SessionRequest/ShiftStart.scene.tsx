@@ -1,6 +1,6 @@
 import Header from '@scenes/SessionRequest/components/Header.tsx';
 import {
-    ScrollView,
+    ScrollView, StatusBar,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -135,6 +135,7 @@ const ShiftStartScene = () => {
 
     return (
         <SceneContainer>
+            <StatusBar barStyle={'light-content'} />
             <Header title={sceneTitle} />
             <ScrollView style={styles.container}>
                 <InputField

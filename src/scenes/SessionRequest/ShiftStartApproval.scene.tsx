@@ -3,7 +3,7 @@ import SceneContainer, {
     shadowStyle,
 } from '@components/molecules/SceneContainer.tsx';
 import Header from '@scenes/SessionRequest/components/Header.tsx';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import InputField from '@components/InputField/InputField.tsx';
 import React, { useState } from 'react';
 import colors from '@themes/colors.ts';
@@ -44,6 +44,7 @@ const ShiftStartApprovalScene = () => {
 
     return (
         <SceneContainer>
+            <StatusBar barStyle={'light-content'} />
             <Header title={'Approval Shift Check-In'} canBack />
             <View style={styles.container}>
                 <InputField

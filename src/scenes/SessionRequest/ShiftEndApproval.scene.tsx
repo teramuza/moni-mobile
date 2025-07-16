@@ -4,6 +4,7 @@ import SceneContainer, {
 } from '@components/molecules/SceneContainer.tsx';
 import Header from '@scenes/SessionRequest/components/Header.tsx';
 import {
+    StatusBar,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -48,6 +49,7 @@ const ShiftEndApprovalScene = () => {
 
     return (
         <SceneContainer>
+            <StatusBar barStyle={'light-content'} />
             <Header title={'Approval Shift Check-Out'} canBack />
             <View style={styles.container}>
                 <InputField

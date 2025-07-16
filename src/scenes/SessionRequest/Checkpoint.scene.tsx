@@ -1,6 +1,6 @@
 import Header from '@scenes/SessionRequest/components/Header.tsx';
 import {
-    ScrollView,
+    ScrollView, StatusBar,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -88,6 +88,7 @@ const CheckpointScene = () => {
         return (
             <>
                 <View style={styles.itemSalesContainer}>
+                    <StatusBar barStyle={'light-content'} />
                     <Text style={styles.fieldLabel}>{'Pilih Barang:'}</Text>
                     {items?.length === 0 ? (
                         <Text style={styles.summaryText}>

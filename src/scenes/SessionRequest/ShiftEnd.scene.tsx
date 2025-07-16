@@ -1,6 +1,6 @@
 import Header from '@scenes/SessionRequest/components/Header.tsx';
 import {
-    ScrollView,
+    ScrollView, StatusBar,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -45,6 +45,7 @@ const ShiftEndScene = () => {
         return (
             <>
                 <View style={styles.itemSalesContainer}>
+                    <StatusBar barStyle={'light-content'} />
                     <Text style={styles.fieldLabel}>{'Barang Terjual:'}</Text>
                     {salesSummary?.soldItems?.length === 0 ? (
                         <Text style={styles.summaryText}>

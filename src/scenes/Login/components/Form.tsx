@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import {Pressable, StatusBar, StyleSheet, Text, View} from 'react-native';
 import Colors from '@themes/colors';
 import InputField from '@components/InputField/InputField';
 import useLogin from '@scenes/Login/hooks/useLogin.ts';
@@ -57,6 +57,7 @@ const Form: React.FC<IProps> = ({showToast}) => {
 
   return (
     <View style={styles.formContainer}>
+      <StatusBar barStyle={'light-content'} />
       <InputField
         label="Email"
         inputMode="email"

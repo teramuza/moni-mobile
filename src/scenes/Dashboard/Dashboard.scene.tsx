@@ -1,5 +1,5 @@
 import ProfileSection from '@scenes/Dashboard/components/Profile.section.tsx';
-import { View } from 'react-native';
+import {StatusBar, View} from 'react-native';
 import Colors from '@themes/colors.ts';
 import ProgressSection from '@scenes/Dashboard/components/SalesComponent/Progress.section.tsx';
 import ActionSection from '@scenes/Dashboard/components/Action.section.tsx';
@@ -14,6 +14,7 @@ const DashboardScene = () => {
                 marginHorizontal: 12,
             }}
         >
+            <StatusBar barStyle={'dark-content'} />
             <ProfileSection />
             <ProgressSection
                 dashboardSummary={generateDashboardSummary()}

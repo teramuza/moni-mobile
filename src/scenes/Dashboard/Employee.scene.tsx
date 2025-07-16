@@ -5,7 +5,7 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    FlatList,
+    FlatList, StatusBar,
 } from 'react-native';
 import Colors from '@themes/colors.ts';
 import { IconOutline } from '@ant-design/icons-react-native';
@@ -65,6 +65,7 @@ const EmployeeScene = () => {
 
     return (
         <SceneContainer>
+            <StatusBar barStyle={'dark-content'} />
             <View style={styles.header}>
                 <Text style={styles.headerText}>Data Pegawai</Text>
             </View>

@@ -1,5 +1,5 @@
 import Header from '@scenes/SessionRequest/components/Header.tsx';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import DropdownField from '@components/InputField/DropdownField.tsx';
 import InputField from '@components/InputField/InputField.tsx';
 import CounterField from '@components/InputField/CounterField.tsx';
@@ -37,6 +37,7 @@ const ShiftStartAddItemScene = () => {
 
     return (
         <SceneContainer>
+            <StatusBar barStyle={'light-content'} />
             <Header title={'Tambah barang'} />
             <View style={styles.container}>
                 <DropdownField
