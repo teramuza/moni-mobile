@@ -5,7 +5,16 @@ import LoggingUtils from "@utils/logging.utils.ts";
 
 export async function getProfile(id: number): Promise<Profile> {
     try {
-        const response = await fetchData<Profile>(profileAPI.getProfileURL(id));
+        const response = await fetchData<Profile>(profileAPI.getProfileURL, {id});
+        return response.data;
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export async function getProfileByEmployeeId(id: string): Promise<Profile> {
+    try {
+        const response = await fetchData<Profile>(profileAPI.getProfileURL, {employee_id: id});
         return response.data;
     } catch (error) {
         return Promise.reject(error);

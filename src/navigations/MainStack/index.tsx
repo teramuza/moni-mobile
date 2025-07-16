@@ -8,6 +8,8 @@ import ShiftEndScene from '@scenes/SessionRequest/ShiftEnd.scene.tsx';
 import ShiftStartScene from '@scenes/SessionRequest/ShiftStart.scene.tsx';
 import ShiftStartAddItemScene from '@scenes/SessionRequest/ShiftStartAddItem.scene.tsx';
 import CheckpointScene from '@scenes/SessionRequest/Checkpoint.scene.tsx';
+import ShiftStartApprovalScene from '@scenes/SessionRequest/ShiftStartApproval.scene.tsx';
+import ShiftEndApprovalScene from '@scenes/SessionRequest/ShiftEndApproval.scene.tsx';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +41,16 @@ const MainStack = () => (
             component={ShiftStartScene}
         />
         <Stack.Screen name={routeName.CheckOutForm} component={ShiftEndScene} />
+
+        <Stack.Screen
+            name={routeName.CheckInVerification}
+            component={ShiftStartApprovalScene}
+        />
+
+        <Stack.Screen
+            name={routeName.CheckOutVerification}
+            component={ShiftEndApprovalScene}
+        />
     </Stack.Navigator>
 );
 

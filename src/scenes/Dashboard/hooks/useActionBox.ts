@@ -59,14 +59,14 @@ export default function useActionBox() {
                     title: 'Approval Check-in Pegawai',
                     label: 'Lihat sesi check-in yang pending, verifikasi barang mereka disini',
                     color: 'bluePurple',
-                    onPress: () => {},
+                    onPress: () => navigate(routeName.CheckInVerification),
                 },
                 {
                     icon: 'carry-out',
                     title: 'Approval Check-out Pegawai',
                     label: 'Verifikasi barang penjualan karyawan disini',
                     color: 'royalBlue',
-                    onPress: () => {},
+                    onPress: () => navigate(routeName.CheckOutVerification),
                 },
             ];
         }
