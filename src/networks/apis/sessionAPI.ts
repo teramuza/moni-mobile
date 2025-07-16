@@ -1,5 +1,6 @@
 const getActiveSessionURL = '/shift/sessions/active';
 const getSessionURL = 'shift/session/';
+const getAllActiveSessions = 'shift/sessions/all';
 
 const checkInSessionURL = '/shift/check-in';
 const addItemToSessionURL = (id: number) => `/shift/check-in/item?id=${id}`;
@@ -17,6 +18,7 @@ const rejectCheckOutURL = (id: number) => `/shift/check-out/verify/reject?id=${i
 export default {
     getActiveSessionURL,
     getSessionURL,
+    getAllActiveSessions,
     checkInSessionURL,
     addItemToSessionURL,
     updateItemSessionURL,

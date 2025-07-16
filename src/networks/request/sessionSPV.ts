@@ -1,5 +1,19 @@
-import { postData } from '@networks/lib/ApiReq.ts';
+import {fetchData, postData} from '@networks/lib/ApiReq.ts';
 import sessionAPI from '@networks/apis/sessionAPI.ts';
+import {Session} from "@models/Session.ts";
+
+export const getAllActiveSessions = async () => {
+    try {
+        const response = await fetchData<Session[]>(
+            sessionAPI.getAllActiveSessions,
+        );
+        if (response.data) {
+            return response.data;
+        }
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
 
 export const approveCheckInSession = async (sessionId: number) => {
     try {
