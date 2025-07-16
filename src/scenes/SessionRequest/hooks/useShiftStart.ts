@@ -64,7 +64,8 @@ function useShiftStart() {
 
     const getProductData = (id: number) => {
         if (inventories) {
-            return inventories.find(inventory => inventory.id === id);
+            LoggingUtils.log('inventories',inventories)
+            return inventories.find(inventory => String(inventory.id) === String(id));
         }
     };
 

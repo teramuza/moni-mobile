@@ -21,6 +21,7 @@ import { IconOutline } from '@ant-design/icons-react-native';
 import { navigate } from '@navigations/Navigation.service.ts';
 import routeName from '@navigations/routeName.ts';
 import {useSessionStore} from "@stores/SessionStore.ts";
+import LoggingUtils from "@utils/logging.utils.ts";
 
 const ShiftStartScene = () => {
     const sliderRef = useRef<DefaultRefType>(null);
@@ -52,6 +53,7 @@ const ShiftStartScene = () => {
                         </Text>
                     ) : (
                         carriedItems?.map((item, index) => {
+                            LoggingUtils.log('carried item', item);
                             const product = getProductData(item.id_inv);
                             return (
                                 <View
@@ -67,7 +69,7 @@ const ShiftStartScene = () => {
                                             marginBottom: 12,
                                         }}
                                     >
-                                        {product?.name}
+                                        {item?.name ?? product?.name}
                                     </Text>
                                     <Text>{`Qty: ${item.qty}`}</Text>
                                     <Text>{`UPC Code: ${product?.upc_code}`}</Text>
