@@ -72,7 +72,7 @@ const ShiftStartScene = () => {
                                         {item?.name ?? product?.name}
                                     </Text>
                                     <Text>{`Qty: ${item.qty}`}</Text>
-                                    <Text>{`UPC Code: ${product?.upc_code}`}</Text>
+                                    <Text>{`UPC Code: ${item?.upc_code ?? product?.upc_code}`}</Text>
                                 </View>
                             );
                         })

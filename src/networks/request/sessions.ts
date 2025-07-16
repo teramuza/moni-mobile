@@ -68,7 +68,7 @@ export const updateItemSession = async (itemId: number, qty: number) => {
 
 export const requestCheckInSession = async (sessionId: number) => {
     try {
-        const response = await postData(sessionAPI.rejectCheckInURL(sessionId));
+        const response = await postData(sessionAPI.requestCheckInURL(sessionId));
         if (response) {
             return {
                 success: true,
