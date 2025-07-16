@@ -3,6 +3,7 @@ import { CheckPointPayload, Session } from '@models/Session.ts';
 import { BaseResponse, ObjectData } from '@type/networks.ts';
 import sessionAPI from '@networks/apis/sessionAPI.ts';
 import { useAuthStore } from '@stores/AuthStore.ts';
+import {CarriedItem} from "@models/CarriedItem.ts";
 
 export async function getActiveSessions() {
     try {
@@ -43,7 +44,7 @@ export const addItemToSession = async (
     item: { id_inv: number; qty: number },
 ) => {
     try {
-        const response = await postData(
+        const response = await postData<CarriedItem>(
             sessionAPI.addItemToSessionURL(sessionId),
             item,
         );

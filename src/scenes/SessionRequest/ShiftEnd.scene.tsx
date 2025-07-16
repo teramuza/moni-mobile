@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         ...shadowStyle(),
     },
     bottomSection: {
-        height: 70,
+        height: 60,
         alignItems: 'center',
         justifyContent: 'center',
         paddingBottom: 12,

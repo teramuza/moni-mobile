@@ -43,12 +43,11 @@ function useShiftEnd() {
         }
     };
 
-    const sceneTitle =
-        session?.status === SessionStatus.VERIFY_OUT
-            ? 'Menunggu verifikasi..'
-            : 'Check-out Shift';
-
     const isWaitingApproval = session?.status === SessionStatus.VERIFY_OUT;
+
+    const sceneTitle = isWaitingApproval
+        ? 'Menunggu verifikasi..'
+        : 'Check-out Shift';
 
     const handleContinueVerify = () => {
         setIsLoading(true);

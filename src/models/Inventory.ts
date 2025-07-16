@@ -1,5 +1,3 @@
-import { StockItem } from './StockItem';
-
 export interface Inventory {
     id: number;
     name: string;
@@ -7,6 +5,7 @@ export interface Inventory {
     item_per_pack: number;
     base_price: number;
     selling_price: number;
-
-    StockItems?: StockItem[];
+    createdAt?: string;
+    updatedAt?: string;
+    stock?: number;
 }

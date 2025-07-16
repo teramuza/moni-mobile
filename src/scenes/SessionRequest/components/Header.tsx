@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingTop: 80,
         paddingHorizontal: 24,
-        paddingBottom: 40,
+        paddingBottom: 35,
     },
     logo: {
         width: 92,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: 'bold',
         color: 'white',
-        fontSize: 32,
+        fontSize: 28,
         maxWidth: 400,
         marginVertical: 4,
     },

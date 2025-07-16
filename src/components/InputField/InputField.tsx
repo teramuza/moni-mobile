@@ -100,9 +100,10 @@ const styles = StyleSheet.create({
         paddingVertical: 4,
     },
     fieldLabel: {
-        paddingVertical: 12,
         fontSize: 14,
-        color: colors.neutralMainText,
+        fontWeight: '600',
+        color: colors.neutralSecondaryText,
+        paddingVertical: 12,
     },
     fieldTextInputContainer: {
         flexDirection: 'row',
