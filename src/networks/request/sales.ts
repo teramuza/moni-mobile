@@ -5,14 +5,17 @@ import {
     SalesSummaryItem,
 } from '@models/SalesLog.ts';
 import salesAPI from '@networks/apis/salesAPI.ts';
+import LoggingUtils from "@utils/logging.utils.ts";
 
 export async function getSalesByEmployee(id: number) {
     try {
         const response = await fetchData<AllSalesCount>(
             salesAPI.salesByProfileAPI(id),
         );
+        LoggingUtils.log('getSalesByEmployee', id, response);
         return response.data;
     } catch (error) {
+        LoggingUtils.log('getSalesByEmployee error', id, error);
         return Promise.reject(error);
     }
 }

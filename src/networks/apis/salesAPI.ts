@@ -1,4 +1,4 @@
-const salesByProfileAPI = (id: number) => `sales?profile_id=${id}}`;
+const salesByProfileAPI = (id: number) => `sales?profile_id=${id}`;
 const allSales = 'sales/all';
 const itemSalesByDay = 'sales/qty-day';
 const salesSummaryItemsURL = 'sales/summary';

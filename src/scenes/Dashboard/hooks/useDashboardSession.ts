@@ -3,10 +3,10 @@ import { getSAWScore } from '@networks/request/profile.ts';
 import { useAuthStore } from '@stores/AuthStore.ts';
 import { getSalesByEmployee } from '@networks/request/sales.ts';
 import Colors from '@themes/colors.ts';
-import { shortNumber } from '@utils/number.utils.ts';
+import { generateSAWScore, shortNumber } from '@utils/number.utils.ts';
 import useShiftSessionEmployee from '@hooks/useShiftSessionEmployee.ts';
-import {UserRole} from "@constants/User.ts";
-import {getDurationString, getMinutesDuration} from "@utils/time.utils.ts";
+import { UserRole } from '@constants/User.ts';
+import { getDurationString, getMinutesDuration } from '@utils/time.utils.ts';
 
 export interface IDashboardSummarySection {
     label: string;
@@ -54,7 +54,7 @@ const useDashboardSession = () => {
                 summary = [
                     {
                         label: 'Skor Kinerjamu',
-                        value: SAWScore.toString(),
+                        value: generateSAWScore(SAWScore),
                         color: Colors.bluePurpleMin2,
                     },
                     {
@@ -77,15 +77,17 @@ const useDashboardSession = () => {
                     },
                     {
                         label: 'Durasi sesi',
-                        value: getDurationString(getMinutesDuration(session.pick_time as string)),
+                        value: getDurationString(
+                            getMinutesDuration(session.pick_time as string),
+                        ),
                         color: Colors.royalBlueMin2,
                     },
                     {
                         label: 'Barang terjual',
                         value: shortNumber(session?.total_qty ?? 0),
                         color: Colors.mossGreenMin2,
-                    }
-                ]
+                    },
+                ];
             }
         } else {
             summary = [
@@ -103,8 +105,8 @@ const useDashboardSession = () => {
                     label: 'Barang terjual hari ini',
                     value: '0',
                     color: Colors.mossGreenMin2,
-                }
-            ]
+                },
+            ];
         }
 
         return summary;

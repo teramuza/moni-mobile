@@ -19,3 +19,8 @@ export const shortNumber = (_num: number) => {
     }
     return `${_num}`
 }
+
+export const generateSAWScore = (score: number) => {
+    const sawScore = score * 10;
+    return sawScore.toFixed(2).replace(/\.?0+$/, '');
+}
