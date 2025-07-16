@@ -20,14 +20,19 @@ import { DefaultRefType } from '@type/base.ts';
 import { IconOutline } from '@ant-design/icons-react-native';
 import { navigate } from '@navigations/Navigation.service.ts';
 import routeName from '@navigations/routeName.ts';
-import {useSessionStore} from "@stores/SessionStore.ts";
-import LoggingUtils from "@utils/logging.utils.ts";
+import { useSessionStore } from '@stores/SessionStore.ts';
+import LoggingUtils from '@utils/logging.utils.ts';
+import { formatOrderRequestId } from '@utils/sales.utils.ts';
 
 const ShiftStartScene = () => {
     const sliderRef = useRef<DefaultRefType>(null);
-    const { sceneTitle, isWaitingApproval, getProductData, requestStartSession } =
-        useShiftStart();
-    const {session} = useSessionStore();
+    const {
+        sceneTitle,
+        isWaitingApproval,
+        getProductData,
+        requestStartSession,
+    } = useShiftStart();
+    const { session } = useSessionStore();
     const { profile } = useProfileStore();
 
     const handleContinue = () => {
@@ -72,7 +77,9 @@ const ShiftStartScene = () => {
                                         {item?.name ?? product?.name}
                                     </Text>
                                     <Text>{`Qty: ${item.qty}`}</Text>
-                                    <Text>{`UPC Code: ${item?.upc_code ?? product?.upc_code}`}</Text>
+                                    <Text>{`UPC Code: ${
+                                        item?.upc_code ?? product?.upc_code
+                                    }`}</Text>
                                 </View>
                             );
                         })
@@ -103,11 +110,29 @@ const ShiftStartScene = () => {
     const renderVerification = () => {
         if (!isWaitingApproval) return;
         return (
-            <View style={{flex: 1}}>
-                <Text style={{fontSize: 50}}>OR 1231</Text>
+            <View
+                style={{
+                    flex: 1,
+                    minHeight: 300,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                {!!session && (
+                    <>
+                        <Text style={{ textAlign: 'center', paddingHorizontal: 20,}}>
+                            Tunjukkan Token ini kepada pengawas gudang untuk
+                            memverifikasi data check-in mu
+                        </Text>
+                        <Text style={{ fontSize: 50, fontWeight: '700' }}>
+                            {formatOrderRequestId(session?.id)}
+                        </Text>
+                    </>
+                )}
             </View>
         );
     };
+
     return (
         <SceneContainer>
             <Header title={sceneTitle} />
@@ -130,7 +155,10 @@ const ShiftStartScene = () => {
                     </TouchableOpacity>
                 </View>
             )}
-            <CheckOutConfirmationSlider ref={sliderRef} onConfirm={requestStartSession} />
+            <CheckOutConfirmationSlider
+                ref={sliderRef}
+                onConfirm={requestStartSession}
+            />
         </SceneContainer>
     );
 };

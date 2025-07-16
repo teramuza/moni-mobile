@@ -17,6 +17,8 @@ import Colors from '@themes/colors.ts';
 import useShiftEnd from '@scenes/SessionRequest/hooks/useShiftEnd.ts';
 import CheckOutConfirmationSlider from '@scenes/SessionRequest/components/CheckoutConfirmation.slider.tsx';
 import { DefaultRefType } from '@type/base.ts';
+import {formatOrderRequestId} from "@utils/sales.utils.ts";
+import {useSessionStore} from "@stores/SessionStore.ts";
 
 const ShiftEndScene = () => {
     const sliderRef = useRef<DefaultRefType>(null);
@@ -28,6 +30,7 @@ const ShiftEndScene = () => {
         handleContinueVerify,
     } = useShiftEnd();
     const { profile } = useProfileStore();
+    const { session } = useSessionStore();
 
     useEffect(() => {
         getSalesSummary();
@@ -100,8 +103,25 @@ const ShiftEndScene = () => {
     const renderVerification = () => {
         if (!isWaitingApproval) return;
         return (
-            <View style={{flex: 1}}>
-                <Text style={{fontSize: 50}}>OR 1231</Text>
+            <View
+                style={{
+                    flex: 1,
+                    minHeight: 300,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                {!!session && (
+                    <>
+                        <Text style={{ textAlign: 'center', paddingHorizontal: 20,}}>
+                            Tunjukkan Token ini kepada pengawas gudang untuk
+                            memverifikasi data check-out mu
+                        </Text>
+                        <Text style={{ fontSize: 50, fontWeight: '700' }}>
+                            {formatOrderRequestId(session?.id)}
+                        </Text>
+                    </>
+                )}
             </View>
         );
     };
