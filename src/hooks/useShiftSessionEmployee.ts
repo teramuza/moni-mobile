@@ -42,18 +42,7 @@ const useShiftSessionEmployee = () => {
     const checkActiveSession = () => {
         if (session) {
             const currentRoute = getCurrentRoute();
-            if (
-                session.status > SessionStatus.VERIFY_IN &&
-                session.status < SessionStatus.VERIFY_OUT
-            ) {
-                if (
-                    currentRoute?.name !== routeName.Dashboard &&
-                    currentRoute?.name !== routeName.CheckPointForm &&
-                    currentRoute?.name !== routeName.CheckOutForm
-                ) {
-                    navigate(routeName.DashboardWrapper);
-                }
-            } else if (session.status === SessionStatus.FINISH) {
+            if (session.status === SessionStatus.FINISH) {
                 clearSession();
                 reInitScreenApp();
             } else if (
@@ -75,7 +64,7 @@ const useShiftSessionEmployee = () => {
         if (!session) {
             checkInSession().then(data => {
                 if (data.status === SessionStatus.PENDING) {
-                    checkActiveSession();
+                    setSession(data);
                 }
             });
         }

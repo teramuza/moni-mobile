@@ -1,20 +1,26 @@
-import { useSessionStore } from '@stores/SessionStore.ts';
 import { OutlineGlyphMapType } from '@ant-design/icons-react-native/lib/outline';
 import { useAuthStore } from '@stores/AuthStore.ts';
-import {IColorSchemes} from "@themes/colors.ts";
-import useShiftSessionEmployee from "@hooks/useShiftSessionEmployee.ts";
+import { IColorSchemes } from '@themes/colors.ts';
+import useShiftSessionEmployee from '@hooks/useShiftSessionEmployee.ts';
+import { useBottomSheetRefs } from '@components/molecules/BottomSheet/BottomSheetProvider.tsx';
 
 export interface IActionBox {
     icon: OutlineGlyphMapType;
     title: string;
     label: string;
     onPress: () => void;
-    color: IColorSchemes
+    color: IColorSchemes;
 }
 
 export default function useActionBox() {
     const { user } = useAuthStore();
-    const { session, prepareCheckInSession, prepareCheckOutSession} = useShiftSessionEmployee();
+    const { session, prepareCheckOutSession } = useShiftSessionEmployee();
+
+    const { refs } = useBottomSheetRefs();
+
+    const openConfirmationCheckIn = () => {
+        refs?.checkInConfirmationSlider?.current?.open();
+    };
 
     const generateActionBox = () => {
         let actionBox: IActionBox[] = [
@@ -23,7 +29,7 @@ export default function useActionBox() {
                 title: 'Apakah kamu siap check-in?',
                 label: 'Siapkan helmu, angkat barangmu, kita mulai sesi petualangan!',
                 color: 'bluePurple',
-                onPress: prepareCheckInSession,
+                onPress: openConfirmationCheckIn,
             },
         ];
         if (session) {
@@ -41,7 +47,7 @@ export default function useActionBox() {
                     label: 'Sudahi sesi, kembali ke markas. Kita laporkan hasil terbaikmu hari ini!',
                     color: 'brownSugar',
                     onPress: prepareCheckOutSession,
-                }
+                },
             ];
         }
         if (user?.role !== 0) {
@@ -59,17 +65,17 @@ export default function useActionBox() {
                     label: 'Verifikasi barang penjualan karyawan disini',
                     color: 'royalBlue',
                     onPress: () => {},
-                }
+                },
             ];
         }
 
         return actionBox;
     };
 
-    const isNoSessionActive = !session && user?.role === 0
+    const isNoSessionActive = !session && user?.role === 0;
 
     return {
         generateActionBox,
         isNoSessionActive,
-    }
+    };
 }

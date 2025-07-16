@@ -1,10 +1,11 @@
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 import { DefaultRefType } from '@type/base.ts';
 import BottomSheet from '@gorhom/bottom-sheet';
-import BottomSheetViewContainer from "@components/molecules/BottomSheet";
-import {Pressable, StyleSheet, Text, View} from "react-native";
-import Colors from "@themes/colors.ts";
-import {IconOutline} from "@ant-design/icons-react-native";
+import BottomSheetViewContainer from '@components/molecules/BottomSheet';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import Colors from '@themes/colors.ts';
+import { IconOutline } from '@ant-design/icons-react-native';
+import useShiftSessionEmployee from '@hooks/useShiftSessionEmployee.ts';
 
 interface Props {
     onClose?: () => void;
@@ -13,6 +14,8 @@ interface Props {
 const CheckInConfirmationSlider = forwardRef<DefaultRefType, Props>(
     ({ onClose }, ref) => {
         const bottomSheetRef = useRef<BottomSheet | null>(null);
+
+        const { prepareCheckInSession } = useShiftSessionEmployee();
 
         useImperativeHandle(ref, () => ({
             open: () => {
@@ -29,7 +32,10 @@ const CheckInConfirmationSlider = forwardRef<DefaultRefType, Props>(
             onClose?.();
         }
 
-        function onPressContinue() {}
+        function onPressContinue() {
+            close();
+            prepareCheckInSession();
+        }
 
         return (
             <BottomSheetViewContainer
@@ -38,7 +44,7 @@ const CheckInConfirmationSlider = forwardRef<DefaultRefType, Props>(
                 bottomInset={18}
             >
                 <View style={{ alignItems: 'center' }}>
-                    <IconOutline name='send' />
+                    <IconOutline name="send" size={50} />
                     <Text style={styles.labelText}>
                         Anda sudah siap? aksi ini tidak bisa dibatalkan
                     </Text>
@@ -46,13 +52,19 @@ const CheckInConfirmationSlider = forwardRef<DefaultRefType, Props>(
                 <View style={styles.actionContainer}>
                     <Pressable
                         onPress={onPressContinue}
-                        style={[styles.buttonAction, { backgroundColor: Colors.bluePurpleMin1 }]}
+                        style={[
+                            styles.buttonAction,
+                            { backgroundColor: Colors.bluePurpleMin1 },
+                        ]}
                     >
                         <Text style={styles.labelButtonAction}>Mulai!</Text>
                     </Pressable>
                     <Pressable
                         onPress={close}
-                        style={[styles.buttonAction, { backgroundColor: Colors.greyMin1 }]}
+                        style={[
+                            styles.buttonAction,
+                            { backgroundColor: Colors.greyMin1 },
+                        ]}
                     >
                         <Text style={styles.labelButtonAction}>Batal</Text>
                     </Pressable>
@@ -69,7 +81,12 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 4,
     },
-    labelText: { fontSize: 18, marginVertical: 12, fontWeight: '300' },
+    labelText: {
+        fontSize: 18,
+        marginVertical: 12,
+        fontWeight: '300',
+        textAlign: 'center',
+    },
     buttonAction: {
         width: 60,
         height: 50,

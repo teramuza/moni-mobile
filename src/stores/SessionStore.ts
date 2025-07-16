@@ -1,6 +1,4 @@
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Session, TSessionStatusCode } from '@models/Session';
 import { getActiveSessions } from '@networks/request/sessions.ts';
 
@@ -12,45 +10,33 @@ interface SessionState {
     clearSession: () => void;
 }
 
-export const useSessionStore = create<SessionState>()(
-    persist(
-        set => ({
-            session: null,
+export const useSessionStore = create<SessionState>()(set => ({
+    session: null,
+    setSession: session => set({ session }),
+    updateStatus: (status: TSessionStatusCode) =>
+        set(state => {
+            if (!state.session) return {};
 
-            setSession: session => set({ session }),
-
-            updateStatus: (status: TSessionStatusCode) =>
-                set(state => {
-                    if (!state.session) return {};
-
-                    return {
-                        session: {
-                            ...state.session,
-                            status,
-                        },
-                    };
-                }),
-
-            clearSession: () => set({ session: null }),
-
-            fetchActiveSession: async () => {
-                try {
-                    const sessions = await getActiveSessions(); // assumed to return array
-                    const firstSession = sessions?.[0] ?? null;
-                    if (firstSession && !firstSession.return_time) {
-                        set({ session: firstSession });
-                    } else {
-                        set({ session: null });
-                    }
-                } catch (e) {
-                    console.warn('Failed to fetch session', e);
-                    set({ session: null });
-                }
-            },
+            return {
+                session: {
+                    ...state.session,
+                    status,
+                },
+            };
         }),
-        {
-            name: 'session-storage',
-            storage: createJSONStorage(() => AsyncStorage),
-        },
-    ),
-);
+    clearSession: () => set({ session: null }),
+    fetchActiveSession: async () => {
+        try {
+            const sessions = await getActiveSessions(); // assumed to return array
+            const firstSession = sessions ?? null;
+            if (firstSession && !firstSession.return_time) {
+                set({ session: firstSession });
+            } else {
+                set({ session: null });
+            }
+        } catch (e) {
+            console.warn('Failed to fetch session', e);
+            set({ session: null });
+        }
+    },
+}));
