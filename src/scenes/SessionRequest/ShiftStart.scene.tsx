@@ -24,7 +24,7 @@ import {useSessionStore} from "@stores/SessionStore.ts";
 
 const ShiftStartScene = () => {
     const sliderRef = useRef<DefaultRefType>(null);
-    const { sceneTitle, isWaitingApproval, getProductData } =
+    const { sceneTitle, isWaitingApproval, getProductData, requestStartSession } =
         useShiftStart();
     const {session} = useSessionStore();
     const { profile } = useProfileStore();
@@ -119,7 +119,7 @@ const ShiftStartScene = () => {
                     </TouchableOpacity>
                 </View>
             )}
-            <CheckOutConfirmationSlider ref={sliderRef} onConfirm={() => {}} />
+            <CheckOutConfirmationSlider ref={sliderRef} onConfirm={requestStartSession} />
         </SceneContainer>
     );
 };

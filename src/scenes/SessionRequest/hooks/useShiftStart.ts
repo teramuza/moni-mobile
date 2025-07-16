@@ -2,17 +2,21 @@ import { useEffect, useState } from 'react';
 import { getInventories } from '@networks/request/inventories.ts';
 import { Inventory } from '@models/Inventory.ts';
 import { useSessionStore } from '@stores/SessionStore.ts';
-import { addItemToSession } from '@networks/request/sessions.ts';
+import {
+    addItemToSession,
+    requestCheckInSession,
+} from '@networks/request/sessions.ts';
 import { useToast } from '@components/molecules/Toast/ToastProvider.tsx';
 import { SessionStatus } from '@models/Session.ts';
-import LoggingUtils from "@utils/logging.utils.ts";
+import LoggingUtils from '@utils/logging.utils.ts';
+import { BaseErrorResponse } from '@type/networks.ts';
 
 function useShiftStart() {
     const [isLoading, setIsLoading] = useState(true);
     const [inventories, setInventories] = useState<Inventory[]>();
     const toastRef = useToast();
 
-    const { session, setSession } = useSessionStore();
+    const { session, setSession, updateStatus } = useSessionStore();
 
     useEffect(() => {
         if (!inventories) {
@@ -34,7 +38,10 @@ function useShiftStart() {
                     const updatedCarriedItem = session?.carried_products ?? [];
                     updatedCarriedItem.push(response);
                     if (session) {
-                        setSession({...session, carried_products: updatedCarriedItem});
+                        setSession({
+                            ...session,
+                            carried_products: updatedCarriedItem,
+                        });
                     }
                     onSuccess?.();
                 }
@@ -57,9 +64,29 @@ function useShiftStart() {
 
     const getProductData = (id: number) => {
         if (inventories) {
-            return inventories.find((inventory) => inventory.id === id);
+            return inventories.find(inventory => inventory.id === id);
         }
-    }
+    };
+
+    const requestStartSession = () => {
+        if (session) {
+            setIsLoading(true);
+            requestCheckInSession(session.id)
+                .then(data => {
+                    if (data?.success) {
+                        updateStatus(SessionStatus.VERIFY_IN);
+                    }
+                })
+                .catch((error: BaseErrorResponse) => {
+                    toastRef.showToast({
+                        message:
+                            error?.error?.message ??
+                            'Terjadi kesalahan, coba lagi nanti',
+                    });
+                })
+                .finally(() => setIsLoading(false));
+        }
+    };
 
     return {
         sceneTitle,
@@ -68,6 +95,7 @@ function useShiftStart() {
         inventories,
         addItem,
         getProductData,
+        requestStartSession,
     };
 }
 
