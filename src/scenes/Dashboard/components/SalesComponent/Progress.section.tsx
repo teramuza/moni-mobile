@@ -24,7 +24,7 @@ const ProgressSection: React.FC<IProps> = ({ dashboardSummary }) => {
         const title =
             profile!.role > 0 ? 'Status Penjualan' : 'Kinerja Penjualanmu';
 
-        if (session?.status === SessionStatus.CHECKIN) {
+        if (session?.status === SessionStatus.CHECKIN && profile!.role === 0) {
             const duration =
                 getMinutesDuration(session.pick_time as string) / 60;
 

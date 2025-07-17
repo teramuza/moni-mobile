@@ -1,16 +1,19 @@
 import useEmployeeScene from '@scenes/Dashboard/hooks/useEmployeeScene.ts';
-import SceneContainer, {shadowStyle} from '@components/molecules/SceneContainer.tsx';
+import SceneContainer, {
+    shadowStyle,
+} from '@components/molecules/SceneContainer.tsx';
 import {
     View,
     Text,
     StyleSheet,
     TouchableOpacity,
-    FlatList, StatusBar,
+    FlatList,
+    StatusBar,
 } from 'react-native';
 import Colors from '@themes/colors.ts';
 import { IconOutline } from '@ant-design/icons-react-native';
 import { Profile } from '@models/Profile.ts';
-import {useBottomSheetRefs} from "@components/molecules/BottomSheet/BottomSheetProvider.tsx";
+import { useBottomSheetRefs } from '@components/molecules/BottomSheet/BottomSheetProvider.tsx';
 
 const EmployeeScene = () => {
     const { employees } = useEmployeeScene();
@@ -69,8 +72,10 @@ const EmployeeScene = () => {
             <View style={styles.header}>
                 <Text style={styles.headerText}>Data Pegawai</Text>
             </View>
-            <View style={{flex: 1, marginTop: 20}}>
-                <FlatList renderItem={renderItem} data={employees} />
+            <View style={{ flex: 1, marginTop: 20 }}>
+                {employees && (
+                    <FlatList renderItem={renderItem} data={employees} />
+                )}
             </View>
         </SceneContainer>
     );
