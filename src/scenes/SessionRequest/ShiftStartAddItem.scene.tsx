@@ -37,8 +37,8 @@ const ShiftStartAddItemScene = () => {
 
     return (
         <SceneContainer>
-            <StatusBar barStyle={'light-content'} />
-            <Header title={'Tambah barang'} />
+            <StatusBar barStyle={'light-content'}/>
+            <Header title={'Tambah barang'} canBack/>
             <View style={styles.container}>
                 <DropdownField
                     label="Pilih barang"

@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 import colors from '@themes/colors.ts';
 import Colors from '@themes/colors.ts';
 import { useToast } from '@components/molecules/Toast/ToastProvider.tsx';
-import LoggingUtils from "@utils/logging.utils.ts";
+import LoggingUtils from '@utils/logging.utils.ts';
 
 const ShiftEndApprovalScene = () => {
     const [employeeId, setEmployeeId] = useState<string>();
@@ -59,7 +59,13 @@ const ShiftEndApprovalScene = () => {
                     onBlur={handleValidateEmployeeId}
                     placeholder={'ID Karyawan'}
                 />
-                <Text>{fullName}</Text>
+                {fullName && (
+                    <InputField
+                        label="Nama Karyawan"
+                        value={fullName}
+                        disabled
+                    />
+                )}
                 <InputField
                     label="ID Shift"
                     value={shiftId}

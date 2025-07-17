@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     topSectionLabel: {
         fontSize: 14,
         fontWeight: '300',
-        maxWidth: 300,
+        maxWidth: 270,
     },
     progressSectionContainer: {
         paddingVertical: 12,
