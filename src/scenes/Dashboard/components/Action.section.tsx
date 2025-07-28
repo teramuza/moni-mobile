@@ -67,7 +67,10 @@ const ActionSection = () => {
                             style={[
                                 styles.labelActionBox,
                                 {
-                                    color: Colors.bluePurplePlus1,
+                                    color: Colors[
+                                        (item.color +
+                                            ColorSchemeGradients.Plus2) as IColors
+                                        ],
                                 },
                             ]}
                         >

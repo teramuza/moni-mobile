@@ -68,6 +68,13 @@ export default function useActionBox() {
                     color: 'royalBlue',
                     onPress: () => navigate(routeName.CheckOutVerification),
                 },
+                {
+                    icon: 'desktop',
+                    title: 'Monitor Sesi berjalan',
+                    label: 'Lihat status penjualan karyawan secara langsung',
+                    color: 'mossGreen',
+                    onPress: () => {},
+                }
             ];
         }
 
